@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "data_types.proto";
+
+option java_package = "org.example.services";
+option java_multiple_files = true;
+
+service LookupService {
+  rpc lookup(LookupRequest) returns (google.protobuf.Empty);
+}
+
+service ReplyService {
+  rpc reply(SellerReply) returns (google.protobuf.Empty);
+}
+
+service TransactionService {
+  rpc transact(TransactionRequest) returns (TransactionReply);
+}

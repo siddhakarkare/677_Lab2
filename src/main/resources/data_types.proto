@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "org.example.data_types";
+option java_multiple_files = true;
+
+message LookupRequest {
+  uint32 buyer_id = 1;
+  string product_name = 2;
+  uint32 hops = 3;
+  uint64 request_id = 4;
+  repeated uint32 path = 5;
+}
+
+message SellerReply {
+  uint32 seller_id = 1;
+  uint64 request_id = 2;
+  repeated uint32 path = 3;
+}
+
+message TransactionRequest {
+  uint32 buyer_id = 1;
+  uint32 seller_id = 2;
+  string product_name = 3;
+}
+
+message TransactionReply {
+  bool status_code = 1;
+}
