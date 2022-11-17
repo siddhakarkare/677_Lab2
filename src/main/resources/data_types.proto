@@ -3,24 +3,22 @@ syntax = "proto3";
 option java_package = "org.example.data_types";
 option java_multiple_files = true;
 
-message LookupRequest {
-  uint32 buyer_id = 1;
-  string product_name = 2;
-  uint32 hops = 3;
-  uint64 request_id = 4;
-  repeated uint32 path = 5;
+message ElectionRequest {
+  uint32 initiator_id = 1;
 }
 
-message SellerReply {
-  uint32 seller_id = 1;
-  uint64 request_id = 2;
-  repeated uint32 path = 3;
+message ElectionReply {
+  uint32 leader_id = 1;
+}
+
+message ElectionResultDeclaration {
+  uint32 leader_id = 1;
 }
 
 message TransactionRequest {
   uint32 buyer_id = 1;
-  uint32 seller_id = 2;
-  string product_name = 3;
+  string product_name = 2;
+  uint32 qty = 3;
 }
 
 message TransactionReply {

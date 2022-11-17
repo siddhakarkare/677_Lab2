@@ -8,19 +8,18 @@ import io.grpc.stub.StreamObserver;
 import org.example.Peer;
 import org.example.data_types.LookupRequest;
 import org.example.data_types.SellerReply;
-import org.example.services.LookupServiceGrpc;
-import org.example.services.ReplyServiceGrpc;
+import org.example.services.ElectionServiceGrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LookupServiceImpl extends LookupServiceGrpc.LookupServiceImplBase {
+public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImplBase {
 
     private Peer peer;
 
-    public LookupServiceImpl(Peer peer) {
+    public ElectionServiceImpl(Peer peer) {
         this.peer = peer;
     }
 

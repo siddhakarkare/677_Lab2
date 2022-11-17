@@ -9,23 +9,20 @@ import org.example.data_types.LookupRequest;
 import org.example.data_types.SellerReply;
 import org.example.data_types.TransactionReply;
 import org.example.data_types.TransactionRequest;
-import org.example.services.LookupServiceGrpc;
-import org.example.services.ReplyServiceGrpc;
-import org.example.services.TransactionServiceGrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReplyServiceImpl extends ReplyServiceGrpc.ReplyServiceImplBase {
+public class ElectionResultImpl extends ReplyServiceGrpc.ReplyServiceImplBase {
     private Peer peer;
 
-    public ReplyServiceImpl(Peer peer) {
+    public ElectionResultImpl(Peer peer) {
         this.peer = peer;
     }
 
     @Override
-    public void reply(SellerReply request, StreamObserver<Empty> responseObserver) {
+    public void electLeader(ElectionRequest request, StreamObserver<Empty> responseObserver) {
         List<Integer> path = new ArrayList<>(request.getPathList());
         int seller_id = request.getSellerId();
         long request_id = request.getRequestId();

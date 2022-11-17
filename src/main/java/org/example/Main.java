@@ -6,10 +6,9 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.example.data_types.LookupRequest;
-import org.example.service_impl.LookupServiceImpl;
-import org.example.service_impl.ReplyServiceImpl;
+import org.example.service_impl.ElectionServiceImpl;
+import org.example.service_impl.ElectionResultImpl;
 import org.example.service_impl.TransactionServiceImpl;
-import org.example.services.LookupServiceGrpc;
 
 import java.io.IOException;
 import java.util.*;
@@ -24,7 +23,7 @@ public class Main {
 
     private HashMap<Integer,Integer> portPeerMap;
 
-    private Peer[] peers;
+    private static Peer[] peers;
     private static void electLeaderBully(int initiator){
         //If initiator not supplied select any node randomly to initiate
         if(initiator == -1){
@@ -34,7 +33,7 @@ public class Main {
 
         //Initiator sends request to its neighbors to declare self as the new leader and waits for response
 
-        ArrayList<Integer> neighbors = this.peers[i].getNeighbors();
+        ArrayList<Integer> neighbors = peers[initiator].getNeighbors();
         new Thread(() -> {
             try {
                 sleep(1000);
@@ -58,11 +57,12 @@ public class Main {
             }
 
         }).start();
-    }
-
-
         //current node send request to its neighbors
     }
+
+
+
+
 
     public static void main(String[] args) {
         Boolean seller = false, buyer = false;
@@ -80,7 +80,7 @@ public class Main {
                 {false,false,true,true,false,false} //5
         };
         HashMap<Integer,Integer> portPeerMap = new HashMap<>();
-        Peer[] peers = new Peer[N];
+        peers = new Peer[N];
         for(int i = 0;i < N; i++){ //Create N peers
             int port = portList.get(i);
             portPeerMap.put(port,i);
@@ -106,8 +106,8 @@ public class Main {
 
             new Thread(() -> {
                 try {
-                    Server server = ServerBuilder.forPort(peer.getPort()).addService(new LookupServiceImpl(peer))
-                            .addService(new ReplyServiceImpl(peer))
+                    Server server = ServerBuilder.forPort(peer.getPort()).addService(new ElectionServiceImpl(peer))
+                            .addService(new ElectionResultImpl(peer))
                             .addService(new TransactionServiceImpl(peer))
                             .build();
 
