@@ -1,86 +1,98 @@
 package org.example;
 
-
-import com.google.protobuf.Any;
-
 import java.util.*;
 
 public class Peer {
     private static final HashSet<Boolean> ROLES = new HashSet<>((Arrays.asList(true, false)));
     private static final HashSet<String> PRODUCTS = new HashSet<>((Arrays.asList("fish", "boar", "salt")));
-    Map<String, Double> priceMap = new HashMap<String, Double>()
-    {
-        {
-            put("fish", 10.0);
-            put("boar", 10.0);
-            put("salt", 10.0);
-        }
-    };
+    private static final Map<String, Integer> priceMap = new HashMap<String, Integer>()
+    {{
+            put("fish", 10);
+            put("boar", 10);
+            put("salt", 10);
+    }};
     private static final int MAX_QUANTITY = 100;
     private final int peer_id;
+    private int voter_id = 0;
     private final int port;
     private ArrayList<Integer> neighbors;
     private boolean buyerRole;
     private String buyerProduct;
     private int buyerQuantity = MAX_QUANTITY;
-
     private boolean sellerRole;
     private String sellerProduct;
     private int sellerQuantity = MAX_QUANTITY;
-
     private double sellerPrice = 0;
-
     private long request_id = 1;
-
-    private int vid; //voter id
-
     private static int ctr = 0;
 
     public Peer(int port, ArrayList<Integer> neighbors) {
         this.peer_id = port;
         this.port = port;
         this.neighbors = neighbors;
+
         this.buyerRole = getRandomRoleFromSet(ROLES);
-        this.buyerProduct = getRandomProdFromSet(PRODUCTS);
-        this.buyerQuantity = getRandomQty();
+        if(this.isBuyer()) {
+            this.buyerProduct = getRandomProdFromSet(PRODUCTS);
+            this.buyerQuantity = getRandomQty();
+            this.sellerRole = getRandomRoleFromSet(ROLES);
+        }
+        else {
+            this.sellerRole = true;
+        }
+        if(this.isSeller()) {
+            this.sellerProduct = getRandomProdFromSet(PRODUCTS);
+            this.sellerQuantity = getRandomQty();
+            this.sellerPrice = getProductPrice();
+        }
 
-        this.sellerRole = getRandomRoleFromSet(ROLES);
-        this.sellerProduct = getRandomProdFromSet(PRODUCTS);
-        this.sellerQuantity = getRandomQty();
-
-        this.sellerPrice = getProductPrice();
-
-        this.vid = getNextCount();
-
+        this.voter_id = getNextCount();
     }
 
     public void reset(int code) {
-        if( code == 0 ) { // Reset Buyer
+        if(code == 0) {
+            // reset only the buyer part of the peer
             this.buyerProduct = getRandomProdFromSet(PRODUCTS);
             this.buyerQuantity = getRandomQty();
-//            this.request_id++;
-        }else if ( code == 1){ // reset seller
+        } else if (code == 1) {
+            // reset only the seller part of the peer
             this.sellerProduct = getRandomProdFromSet(PRODUCTS);
             this.sellerQuantity = getRandomQty();
             this.sellerPrice = getProductPrice();
-
-//            this.request_id++;
         }
-        else{ //reset both
-            this.buyerProduct = getRandomProdFromSet(PRODUCTS);
-            this.buyerQuantity = getRandomQty();
-
-            this.sellerProduct = getRandomProdFromSet(PRODUCTS);
-            this.sellerQuantity = getRandomQty();
-            this.sellerPrice = getProductPrice();
+        else{
+            // reset the whole thing
+            this.buyerRole = getRandomRoleFromSet(ROLES);
+            if(this.isBuyer()) {
+                this.buyerProduct = getRandomProdFromSet(PRODUCTS);
+                this.buyerQuantity = getRandomQty();
+                this.sellerRole = getRandomRoleFromSet(ROLES);
+            }
+            else {
+                this.sellerRole = true;
+            }
+            if(this.isSeller()) {
+                this.sellerProduct = getRandomProdFromSet(PRODUCTS);
+                this.sellerQuantity = getRandomQty();
+                this.sellerPrice = getProductPrice();
+            }
         }
     }
 
     public void setBuyerRole(Boolean role) {
         this.buyerRole = role;
     }
+
     public void setSellerRole(Boolean role) {
         this.sellerRole = role;
+    }
+
+    public boolean isBuyer() {
+        return this.buyerRole;
+    }
+
+    public boolean isSeller() {
+        return this.sellerRole;
     }
 
     public int getPort() {
@@ -95,20 +107,16 @@ public class Peer {
         return neighbors;
     }
 
-    public Boolean getSellerRole() {
-        return this.buyerRole;
-    }
-
     public String getSellerProduct() {
-        return this.buyerProduct;
+        return this.sellerProduct;
     }
 
     public int getSellerQuantity() {
-        return this.buyerQuantity;
+        return this.sellerQuantity;
     }
 
-    public Boolean getBuyerRole() {
-        return this.buyerRole;
+    public double getSellerPrice() {
+        return this.sellerPrice;
     }
 
     public String getBuyerProduct() {
@@ -119,22 +127,12 @@ public class Peer {
         return this.buyerQuantity;
     }
 
-    public long getRequestId() { return request_id; }
+    public long getRequestId() {
+        return request_id;
+    }
 
     public void addNeighbor(int neighborId) {
         this.neighbors.add(neighborId);
-    }
-
-    public void decrementBuyerQuantity() {
-        this.buyerQuantity--;
-    }
-
-    public void decrementSellerQuantity() {
-        this.sellerQuantity--;
-    }
-
-    public Boolean isBuyer() {
-        return this.getBuyerRole();
     }
 
     private Boolean getRandomRoleFromSet(HashSet<Boolean> elements) {
