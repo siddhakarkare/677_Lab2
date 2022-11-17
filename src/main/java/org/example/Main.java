@@ -20,6 +20,20 @@ public class Main {
     public static final int N = 6; //Number of peers
     private static final int HOP_COUNT = 3;
 
+    private static int leader = -1; //Leader Id
+
+    private static void electLeaderBully(int initiator){
+        //If initiator not supplied select any node randomly to initiate
+        if(initiator == -1){
+            Random rand = new Random();
+            int a = rand.nextInt(6); //pick any of the
+        }
+
+        //Initiator sends request to its neighbors to declare self as the new leader and waits for response
+
+        //current node send request to its neighbors
+    }
+
     public static void main(String[] args) {
         Boolean seller = false, buyer = false;
         Integer[] ports = new Integer[]{8999,8998,8997,8996,8995,8994,8993,8992}; //makes sure at least N ports are present here
@@ -50,13 +64,13 @@ public class Main {
             peers[i] = new Peer(port, neighbors);
             Peer peer = peers[i];
 
-            if(Boolean.FALSE.equals(buyer) && Boolean.FALSE.equals(peer.isBuyer())) {
-                peer.setRole("buyer");
+            if(Boolean.FALSE.equals(buyer) && Boolean.FALSE.equals(peer.isBuyer())) { //Ensure at least one buyer
+                peer.setBuyerRole(true);
                 buyer = true;
             }
 
-            if(Boolean.FALSE.equals(seller) && Boolean.TRUE.equals(peer.isBuyer())) {
-                peer.setRole("seller");
+            if(Boolean.FALSE.equals(seller) && Boolean.TRUE.equals(peer.isBuyer())) { //Ensure at least one seller
+                peer.setSellerRole(true);
                 seller = true;
             }
 
@@ -82,7 +96,7 @@ public class Main {
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
-            System.out.println("\nPeer:"+i+"\n  Port:"+peers[i].getPort()+"\n  Role:"+peers[i].getRole()+"\n  Product:"+peers[i].getProduct()+"\n  Quantity:"+peers[i].getQuantity());
+            System.out.println("\nPeer:"+i+"\n  Port:"+peers[i].getPort()+"\n  BuyerRole:"+peers[i].getBuyerRole()+"\n  SellerRole:"+peers[i].getSellerRole()+"\n  BuyerProduct:"+peers[i].getBuyerProduct()"\n  SellerProduct:"+peers[i].getSellerProduct()+"\n  BuyerQuantity:"+peers[i].getBuyerQuantity()+"\n  SellerQuantity:"+peers[i].getSellerQuantity());
             System.out.print("  Neighbors: ");
             for(int neigh : peers[i].getNeighbors()){
                 System.out.print(" "+portPeerMap.get(neigh)+" ");
