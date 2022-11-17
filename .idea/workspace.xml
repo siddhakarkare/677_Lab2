@@ -4,27 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677&#10;- Some bug fixes 2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionReply.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionReplyOrBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequestOrBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionResultDeclaration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionResultDeclarationOrBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionResultServiceGrpc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionServiceGrpc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/Services.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TransactionServiceGrpc.java" afterDir="false" />
+    <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677&#10;- proto buf updated&#10;- service stubs created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/GreeterImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/LookupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ReplyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionResultImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/TransactionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data_types.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data_types.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/helloworld.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/services.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +15,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -45,15 +28,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/Users/Siddha/Documents/GitHub/677/Lab2/src/main/java/org/example"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/Siddha/Documents/GitHub/677/Lab2/src/main/java/org/example&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/org/example" />
@@ -104,7 +87,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668703372070</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Lab2 677&#10;- proto buf updated&#10;- service stubs created">
+      <created>1668704585502</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668704585502</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Lab2 677&#10;- proto buf updated&#10;- service stubs created">
+      <created>1668705878163</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668705878163</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +120,7 @@
     <MESSAGE value="Lab2 677 Initial Setup" />
     <MESSAGE value="Lab2 677&#10;- Some bug fixes" />
     <MESSAGE value="Lab2 677&#10;- Some bug fixes 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- Some bug fixes 2" />
+    <MESSAGE value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
   </component>
 </project>

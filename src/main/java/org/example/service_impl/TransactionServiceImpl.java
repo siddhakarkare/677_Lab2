@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.example.Peer;
 import org.example.data_types.TransactionReply;
 import org.example.data_types.TransactionRequest;
+import org.example.services.TransactionServiceGrpc;
 
 import java.text.SimpleDateFormat;
 
