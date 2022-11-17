@@ -5,7 +5,6 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.example.data_types.LookupRequest;
 import org.example.service_impl.ElectionServiceImpl;
 import org.example.service_impl.ElectionResultImpl;
 import org.example.service_impl.TransactionServiceImpl;
@@ -21,7 +20,7 @@ public class Main {
 
     private static int leader = -1; //Leader Id
 
-    private HashMap<Integer,Integer> portPeerMap;
+    private static HashMap<Integer,Integer> portPeerMap;
 
     private static Peer[] peers;
     private static void electLeaderBully(int initiator){
@@ -33,30 +32,30 @@ public class Main {
 
         //Initiator sends request to its neighbors to declare self as the new leader and waits for response
 
-        ArrayList<Integer> neighbors = peers[initiator].getNeighbors();
-        new Thread(() -> {
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            for(int j = 0; j < neighbors.size(); j++) {
-                Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
-                ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
-                LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
-                System.out.println("Triggering lookup for"+peer.getId());
-                stub.lookup(LookupRequest.newBuilder()
-                        .setBuyerId(peer.getId())
-                        .setProductName(peer.getBuyerProduct())
-                        .setHops(HOP_COUNT)
-                        .setRequestId(peer.getRequestId())
-                        .addPath(peer.getPort())
-                        .build());
-
-                channel.shutdown();
-            }
-
-        }).start();
+//        ArrayList<Integer> neighbors = peers[initiator].getNeighbors();
+//        new Thread(() -> {
+//            try {
+//                sleep(1000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            for(int j = 0; j < neighbors.size(); j++) {
+//                Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
+//                ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
+//                LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
+//                System.out.println("Triggering lookup for"+peer.getId());
+//                stub.lookup(LookupRequest.newBuilder()
+//                        .setBuyerId(peer.getId())
+//                        .setProductName(peer.getBuyerProduct())
+//                        .setHops(HOP_COUNT)
+//                        .setRequestId(peer.getRequestId())
+//                        .addPath(peer.getPort())
+//                        .build());
+//
+//                channel.shutdown();
+//            }
+//
+//        }).start();
         //current node send request to its neighbors
     }
 
@@ -135,33 +134,33 @@ public class Main {
         System.out.println("\n----------------------------- ");
         for(int i = 0; i < N ; i++) { //Let the trades begin!
             Peer peer = peers[i];
-            if(peer.getBuyerRole() == true) { //initiate first trade
-
-                ArrayList<Integer> neighbors = peers[i].getNeighbors();
-                new Thread(() -> {
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    for(int j = 0; j < neighbors.size(); j++) {
-                        Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
-                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
-                        LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
-                        System.out.println("Triggering lookup for"+peer.getId());
-                        stub.lookup(LookupRequest.newBuilder()
-                                .setBuyerId(peer.getId())
-                                .setProductName(peer.getBuyerProduct())
-                                .setHops(HOP_COUNT)
-                                .setRequestId(peer.getRequestId())
-                                .addPath(peer.getPort())
-                                .build());
-
-                        channel.shutdown();
-                    }
-
-                }).start();
-            }
+//            if(peer.getBuyerRole() == true) { //initiate first trade
+//
+//                ArrayList<Integer> neighbors = peers[i].getNeighbors();
+//                new Thread(() -> {
+//                    try {
+//                        sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                    for(int j = 0; j < neighbors.size(); j++) {
+//                        Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
+//                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
+//                        LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
+//                        System.out.println("Triggering lookup for"+peer.getId());
+//                        stub.lookup(LookupRequest.newBuilder()
+//                                .setBuyerId(peer.getId())
+//                                .setProductName(peer.getBuyerProduct())
+//                                .setHops(HOP_COUNT)
+//                                .setRequestId(peer.getRequestId())
+//                                .addPath(peer.getPort())
+//                                .build());
+//
+//                        channel.shutdown();
+//                    }
+//
+//                }).start();
+//            }
 
         }
 
