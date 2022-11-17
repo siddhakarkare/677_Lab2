@@ -4,14 +4,19 @@ package org.example;
 import com.google.protobuf.Any;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public class Peer {
     private static final HashSet<Boolean> ROLES = new HashSet<>((Arrays.asList(true, false)));
     private static final HashSet<String> PRODUCTS = new HashSet<>((Arrays.asList("fish", "boar", "salt")));
+    Map<String, Double> priceMap = new HashMap<String, Double>()
+    {
+        {
+            put("fish", 10.0);
+            put("boar", 10.0);
+            put("salt", 10.0);
+        }
+    };
     private static final int MAX_QUANTITY = 100;
     private final int peer_id;
     private final int port;
@@ -24,9 +29,13 @@ public class Peer {
     private String sellerProduct;
     private int sellerQuantity = MAX_QUANTITY;
 
-
+    private double sellerPrice = 0;
 
     private long request_id = 1;
+
+    private int vid; //voter id
+
+    private static int ctr = 0;
 
     public Peer(int port, ArrayList<Integer> neighbors) {
         this.peer_id = port;
@@ -39,22 +48,32 @@ public class Peer {
         this.sellerRole = getRandomRoleFromSet(ROLES);
         this.sellerProduct = getRandomProdFromSet(PRODUCTS);
         this.sellerQuantity = getRandomQty();
+
+        this.sellerPrice = getProductPrice();
+
+        this.vid = getNextCount();
+
     }
 
-    public void reset() {
-        if( this.buyerQuantity == 0 ) {
+    public void reset(int code) {
+        if( code == 0 ) { // Reset Buyer
             this.buyerProduct = getRandomProdFromSet(PRODUCTS);
             this.buyerQuantity = getRandomQty();
-            this.request_id++;
-        }else if ( this.sellerQuantity == 0){
+//            this.request_id++;
+        }else if ( code == 1){ // reset seller
             this.sellerProduct = getRandomProdFromSet(PRODUCTS);
             this.sellerQuantity = getRandomQty();
-            this.request_id++;
+            this.sellerPrice = getProductPrice();
+
+//            this.request_id++;
         }
-        else{
-            System.out.println("***********************************");
-            System.out.println("DID NOT RESET!!! HANDLE THIS CASE!!!");
-            System.out.println("***********************************");
+        else{ //reset both
+            this.buyerProduct = getRandomProdFromSet(PRODUCTS);
+            this.buyerQuantity = getRandomQty();
+
+            this.sellerProduct = getRandomProdFromSet(PRODUCTS);
+            this.sellerQuantity = getRandomQty();
+            this.sellerPrice = getProductPrice();
         }
     }
 
@@ -131,4 +150,11 @@ public class Peer {
         return new Random().nextInt(this.MAX_QUANTITY);
     }
 
+    private double getProductPrice(){
+        return priceMap.get(this.getSellerProduct());
+    }
+
+    private int getNextCount(){
+        return this.ctr ++ ; // return and then increment
+    }
 }

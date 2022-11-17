@@ -22,6 +22,9 @@ public class Main {
 
     private static int leader = -1; //Leader Id
 
+    private HashMap<Integer,Integer> portPeerMap;
+
+    private Peer[] peers;
     private static void electLeaderBully(int initiator){
         //If initiator not supplied select any node randomly to initiate
         if(initiator == -1){
@@ -30,6 +33,33 @@ public class Main {
         }
 
         //Initiator sends request to its neighbors to declare self as the new leader and waits for response
+
+        ArrayList<Integer> neighbors = this.peers[i].getNeighbors();
+        new Thread(() -> {
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            for(int j = 0; j < neighbors.size(); j++) {
+                Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
+                ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
+                LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
+                System.out.println("Triggering lookup for"+peer.getId());
+                stub.lookup(LookupRequest.newBuilder()
+                        .setBuyerId(peer.getId())
+                        .setProductName(peer.getBuyerProduct())
+                        .setHops(HOP_COUNT)
+                        .setRequestId(peer.getRequestId())
+                        .addPath(peer.getPort())
+                        .build());
+
+                channel.shutdown();
+            }
+
+        }).start();
+    }
+
 
         //current node send request to its neighbors
     }
@@ -96,7 +126,7 @@ public class Main {
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
-            System.out.println("\nPeer:"+i+"\n  Port:"+peers[i].getPort()+"\n  BuyerRole:"+peers[i].getBuyerRole()+"\n  SellerRole:"+peers[i].getSellerRole()+"\n  BuyerProduct:"+peers[i].getBuyerProduct()"\n  SellerProduct:"+peers[i].getSellerProduct()+"\n  BuyerQuantity:"+peers[i].getBuyerQuantity()+"\n  SellerQuantity:"+peers[i].getSellerQuantity());
+            System.out.println("\nPeer:"+i+"\n  Port:"+peers[i].getPort()+"\n  BuyerRole:"+peers[i].getBuyerRole()+"\n  SellerRole:"+peers[i].getSellerRole()+"\n  BuyerProduct:"+peers[i].getBuyerProduct()+"\n  SellerProduct:"+peers[i].getSellerProduct()+"\n  BuyerQuantity:"+peers[i].getBuyerQuantity()+"\n  SellerQuantity:"+peers[i].getSellerQuantity());
             System.out.print("  Neighbors: ");
             for(int neigh : peers[i].getNeighbors()){
                 System.out.print(" "+portPeerMap.get(neigh)+" ");
@@ -105,7 +135,7 @@ public class Main {
         System.out.println("\n----------------------------- ");
         for(int i = 0; i < N ; i++) { //Let the trades begin!
             Peer peer = peers[i];
-            if(peer.getRole() == "buyer") { //initiate first trade
+            if(peer.getBuyerRole() == true) { //initiate first trade
 
                 ArrayList<Integer> neighbors = peers[i].getNeighbors();
                 new Thread(() -> {
@@ -121,7 +151,7 @@ public class Main {
                         System.out.println("Triggering lookup for"+peer.getId());
                         stub.lookup(LookupRequest.newBuilder()
                                 .setBuyerId(peer.getId())
-                                .setProductName(peer.getProduct())
+                                .setProductName(peer.getBuyerProduct())
                                 .setHops(HOP_COUNT)
                                 .setRequestId(peer.getRequestId())
                                 .addPath(peer.getPort())
