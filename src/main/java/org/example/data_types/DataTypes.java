@@ -48,14 +48,14 @@ public final class DataTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020data_types.proto\"\'\n\017ElectionRequest\022\024\n" +
-      "\014initiator_id\030\001 \001(\r\"\"\n\rElectionReply\022\021\n\t" +
-      "leader_id\030\001 \001(\r\".\n\031ElectionResultDeclara" +
-      "tion\022\021\n\tleader_id\030\001 \001(\r\"I\n\022TransactionRe" +
-      "quest\022\020\n\010buyer_id\030\001 \001(\r\022\024\n\014product_name\030" +
-      "\002 \001(\t\022\013\n\003qty\030\003 \001(\r\"\'\n\020TransactionReply\022\023" +
-      "\n\013status_code\030\001 \001(\010B\032\n\026org.example.data_" +
-      "typesP\001b\006proto3"
+      "\n\020data_types.proto\"5\n\017ElectionRequest\022\024\n" +
+      "\014initiator_id\030\001 \001(\r\022\014\n\004path\030\002 \003(\r\"\"\n\rEle" +
+      "ctionReply\022\021\n\tleader_id\030\001 \001(\r\".\n\031Electio" +
+      "nResultDeclaration\022\021\n\tleader_id\030\001 \001(\r\"I\n" +
+      "\022TransactionRequest\022\020\n\010buyer_id\030\001 \001(\r\022\024\n" +
+      "\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\"\'\n\020Tran" +
+      "sactionReply\022\023\n\013status_code\030\001 \001(\010B\032\n\026org" +
+      ".example.data_typesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -74,7 +74,7 @@ public final class DataTypes {
     internal_static_ElectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ElectionRequest_descriptor,
-        new java.lang.String[] { "InitiatorId", });
+        new java.lang.String[] { "InitiatorId", "Path", });
     internal_static_ElectionReply_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ElectionReply_fieldAccessorTable = new

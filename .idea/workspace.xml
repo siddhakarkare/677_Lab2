@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677&#10;- proto buf updated&#10;- service stubs created">
+    <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677&#10;- Errors removed ElectionServiceImpl">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/LookupRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/LookupRequestOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/SellerReply.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/SellerReplyOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proto/GreeterGrpc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/proto/Helloworld.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionResultImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionResultImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/DataTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/DataTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequestOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequestOrBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data_types.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data_types.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/TransactionServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668705878163</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Lab2 677&#10;- Errors removed ElectionServiceImpl">
+      <created>1668711016206</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668711016206</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,6 +133,7 @@
     <MESSAGE value="Lab2 677&#10;- Some bug fixes" />
     <MESSAGE value="Lab2 677&#10;- Some bug fixes 2" />
     <MESSAGE value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
+    <MESSAGE value="Lab2 677&#10;- Errors removed ElectionServiceImpl" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- Errors removed ElectionServiceImpl" />
   </component>
 </project>

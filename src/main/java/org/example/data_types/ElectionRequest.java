@@ -17,6 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private ElectionRequest() {
     initiatorId_ = 0;
+    path_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -48,6 +49,27 @@ private static final long serialVersionUID = 0L;
             initiatorId_ = input.readUInt32();
             break;
           }
+          case 16: {
+            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              path_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            path_.add(input.readUInt32());
+            break;
+          }
+          case 18: {
+            int length = input.readRawVarint32();
+            int limit = input.pushLimit(length);
+            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002) && input.getBytesUntilLimit() > 0) {
+              path_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            while (input.getBytesUntilLimit() > 0) {
+              path_.add(input.readUInt32());
+            }
+            input.popLimit(limit);
+            break;
+          }
           default: {
             if (!parseUnknownFieldProto3(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -63,6 +85,9 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        path_ = java.util.Collections.unmodifiableList(path_);
+      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -80,6 +105,7 @@ private static final long serialVersionUID = 0L;
             org.example.data_types.ElectionRequest.class, org.example.data_types.ElectionRequest.Builder.class);
   }
 
+  private int bitField0_;
   public static final int INITIATOR_ID_FIELD_NUMBER = 1;
   private int initiatorId_;
   /**
@@ -88,6 +114,29 @@ private static final long serialVersionUID = 0L;
   public int getInitiatorId() {
     return initiatorId_;
   }
+
+  public static final int PATH_FIELD_NUMBER = 2;
+  private java.util.List<java.lang.Integer> path_;
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  public java.util.List<java.lang.Integer>
+      getPathList() {
+    return path_;
+  }
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  public int getPathCount() {
+    return path_.size();
+  }
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  public int getPath(int index) {
+    return path_.get(index);
+  }
+  private int pathMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -103,8 +152,16 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    getSerializedSize();
     if (initiatorId_ != 0) {
       output.writeUInt32(1, initiatorId_);
+    }
+    if (getPathList().size() > 0) {
+      output.writeUInt32NoTag(18);
+      output.writeUInt32NoTag(pathMemoizedSerializedSize);
+    }
+    for (int i = 0; i < path_.size(); i++) {
+      output.writeUInt32NoTag(path_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -118,6 +175,20 @@ private static final long serialVersionUID = 0L;
     if (initiatorId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt32Size(1, initiatorId_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < path_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeUInt32SizeNoTag(path_.get(i));
+      }
+      size += dataSize;
+      if (!getPathList().isEmpty()) {
+        size += 1;
+        size += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(dataSize);
+      }
+      pathMemoizedSerializedSize = dataSize;
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -137,6 +208,8 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getInitiatorId()
         == other.getInitiatorId());
+    result = result && getPathList()
+        .equals(other.getPathList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -150,6 +223,10 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + INITIATOR_ID_FIELD_NUMBER;
     hash = (53 * hash) + getInitiatorId();
+    if (getPathCount() > 0) {
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPathList().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -285,6 +362,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       initiatorId_ = 0;
 
+      path_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -311,7 +390,15 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.example.data_types.ElectionRequest buildPartial() {
       org.example.data_types.ElectionRequest result = new org.example.data_types.ElectionRequest(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.initiatorId_ = initiatorId_;
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        path_ = java.util.Collections.unmodifiableList(path_);
+        bitField0_ = (bitField0_ & ~0x00000002);
+      }
+      result.path_ = path_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -363,6 +450,16 @@ private static final long serialVersionUID = 0L;
       if (other.getInitiatorId() != 0) {
         setInitiatorId(other.getInitiatorId());
       }
+      if (!other.path_.isEmpty()) {
+        if (path_.isEmpty()) {
+          path_ = other.path_;
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          ensurePathIsMutable();
+          path_.addAll(other.path_);
+        }
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -391,6 +488,7 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
     private int initiatorId_ ;
     /**
@@ -414,6 +512,72 @@ private static final long serialVersionUID = 0L;
     public Builder clearInitiatorId() {
       
       initiatorId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.util.List<java.lang.Integer> path_ = java.util.Collections.emptyList();
+    private void ensurePathIsMutable() {
+      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        path_ = new java.util.ArrayList<java.lang.Integer>(path_);
+        bitField0_ |= 0x00000002;
+       }
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public java.util.List<java.lang.Integer>
+        getPathList() {
+      return java.util.Collections.unmodifiableList(path_);
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public int getPathCount() {
+      return path_.size();
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public int getPath(int index) {
+      return path_.get(index);
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public Builder setPath(
+        int index, int value) {
+      ensurePathIsMutable();
+      path_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public Builder addPath(int value) {
+      ensurePathIsMutable();
+      path_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public Builder addAllPath(
+        java.lang.Iterable<? extends java.lang.Integer> values) {
+      ensurePathIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, path_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 2;</code>
+     */
+    public Builder clearPath() {
+      path_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }

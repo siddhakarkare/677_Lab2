@@ -2,6 +2,8 @@ package org.example.service_impl;
 
 
 import com.google.protobuf.Empty;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.example.Peer;
 import org.example.data_types.ElectionReply;
@@ -9,6 +11,8 @@ import org.example.data_types.ElectionRequest;
 import org.example.services.ElectionServiceGrpc;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImplBase {
 
@@ -21,28 +25,44 @@ public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImpl
     @Override
     public void electLeader(ElectionRequest request, StreamObserver<ElectionReply> responseObserver) {
 
-        int buyer_id = request.getInitiatorId();
-//        List<Integer> path = new ArrayList<>(request.);
+        int initiatorId = request.getInitiatorId();
+        List<Integer> path = new ArrayList<>(request.getPathList());
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
-        System.out.println(timeStamp + " \nLookup request received at peer " + peer.getId() + ":\n" + request);
-//        if(!path.contains(peer.getId())) {
-//            if (product.equals(peer.getProduct()) && peer.getQuantity() > 0) {
-//                sendAvailabilityReply(peer.getId(), path, request_id);
-//            } else {
-//                if (request.getHops() != 0) {
-//                    System.out.println(timeStamp + " >> Product not available for RequestId: " + request_id + ", propagating lookup requests to neighbors");
-//                    for (int neighbor: peer.getNeighbors()) {
-//                        if(!path.contains(neighbor)) {
-//                            sendLookupToNeighbor(neighbor, hops, buyer_id, product, path, request_id);
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        System.out.println(timeStamp + " \nElection request received at peer " + peer.getId() + ":\n" + request);
+        if(!path.contains(peer.getId())) { //don't process if already visited at this peer
 
-//        responseObserver.onNext(Empty.getDefaultInstance());
+            if( initiatorId > this.peer.getVoterId() ) {//Tell all the neighbors about the bully
+                path.add(peer.getId());
+
+                for (int neighbor : peer.getNeighbors()) {
+
+                    sendElectionToNeighbor(neighbor, initiatorId, path);
+
+
+                }
+            }
+            else{
+                //Be the Bully
+                    //Send response to the initiator to suppress
+                    //send election leader message to all my neighbors
+
+            }
+        }
+
+//        responseObserver.onNext(responseObserver);
         responseObserver.onCompleted();
     }
 
-}
+
+    private void sendElectionToNeighbor(int neighborId, int initiatorId, List<Integer> path) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neighborId).usePlaintext().build();
+        ElectionServiceGrpc.ElectionServiceBlockingStub stub = ElectionServiceGrpc.newBlockingStub(channel);
+        System.out.println("InitiatorId: " + initiatorId + " sending lookup to neighbor: " + neighborId);
+        stub.electLeader(ElectionRequest.newBuilder()
+                .addAllPath(path)
+                .setInitiatorId(initiatorId)
+                .build());
+        channel.shutdown();
+    }
+    }
