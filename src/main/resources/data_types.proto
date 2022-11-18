@@ -5,7 +5,8 @@ option java_multiple_files = true;
 
 message ElectionRequest {
   uint32 initiator_id = 1;
-  repeated uint32 path = 2;
+  uint32 voter_id = 2;
+  repeated uint32 path = 3;
 }
 
 message ElectionReply {

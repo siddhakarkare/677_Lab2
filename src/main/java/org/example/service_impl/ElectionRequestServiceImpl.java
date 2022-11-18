@@ -1,24 +1,25 @@
 package org.example.service_impl;
 
 
-import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.example.Peer;
 import org.example.data_types.ElectionReply;
 import org.example.data_types.ElectionRequest;
+import org.example.services.ElectionRequestServiceGrpc;
 import org.example.services.ElectionServiceGrpc;
+import org.example.services.ElectionServiceReplyGrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImplBase {
+public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.ElectionRequestServiceImplBase {
 
     private Peer peer;
 
-    public ElectionServiceImpl(Peer peer) {
+    public ElectionRequestServiceImpl(Peer peer) {
         this.peer = peer;
     }
 
@@ -26,32 +27,51 @@ public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImpl
     public void electLeader(ElectionRequest request, StreamObserver<ElectionReply> responseObserver) {
 
         int initiatorId = request.getInitiatorId();
+//        int initiator_voterId = request.ge
         List<Integer> path = new ArrayList<>(request.getPathList());
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         System.out.println(timeStamp + " \nElection request received at peer " + peer.getId() + ":\n" + request);
-        if(!path.contains(peer.getId())) { //don't process if already visited at this peer
 
-            if( initiatorId > this.peer.getVoterId() ) {//Tell all the neighbors about the bully
-                path.add(peer.getId());
-
-                for (int neighbor : peer.getNeighbors()) {
-
+        if( initiatorId > this.peer.getVoterId() ) {//Tell all the neighbors about the bully
+            path.add(peer.getId());
+            boolean isLeaf = false;
+            for (int neighbor : peer.getNeighbors()) {
+                if(!path.contains(neighbor)) {//don't process if already visited at this peer
                     sendElectionToNeighbor(neighbor, initiatorId, path);
-
-
+                    isLeaf = true;
                 }
             }
-            else{
-                //Be the Bully
-                    //Send response to the initiator to suppress
-                    //send election leader message to all my neighbors
 
+            if(isLeaf){ //no unvisited neighbors found. return result for self
+
+                sendElectionReply(initiatorId,peer.getId(),initiatorId);
             }
+
+        }
+        else{
+            //Be the Bully
+            //send itself as the leader
+            denyElectionToParent()
+
+            sendElectionToNeighbor(neighbor, initiatorId, path);
+
+
         }
 
 //        responseObserver.onNext(responseObserver);
         responseObserver.onCompleted();
+    }
+
+    private void sendElectionReply(int initiatorId, int id, int leaderId) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", initiatorId).usePlaintext().build();
+        ElectionServiceReplyGrpc.ElectionServiceReplyBlockingStub stub = ElectionServiceReplyGrpc.newBlockingStub(channel);
+        System.out.println("InitiatorId: " + initiatorId + " local leader: " + leaderId);
+        stub.sendElectionReply(ElectionRequest.newBuilder()
+                .setInitiatorId(initiatorId)
+                .build());
+        channel.shutdown();
+
     }
 
 
@@ -65,4 +85,4 @@ public class ElectionServiceImpl extends ElectionServiceGrpc.ElectionServiceImpl
                 .build());
         channel.shutdown();
     }
-    }
+}
