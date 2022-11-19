@@ -58,19 +58,20 @@ public final class DataTypes {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020data_types.proto\"G\n\017ElectionRequest\022\024\n" +
-      "\014initiator_id\030\001 \001(\r\022\020\n\010voter_id\030\002 \001(\r\022\014\n" +
-      "\004path\030\003 \003(\r\"\"\n\rElectionReply\022\021\n\tleader_i" +
-      "d\030\001 \001(\r\".\n\031ElectionResultDeclaration\022\021\n\t" +
-      "leader_id\030\001 \001(\r\"I\n\022TransactionRequest\022\020\n" +
-      "\010buyer_id\030\001 \001(\r\022\024\n\014product_name\030\002 \001(\t\022\013\n" +
-      "\003qty\030\003 \001(\r\"\'\n\020TransactionReply\022\023\n\013status" +
-      "_code\030\001 \001(\010\"1\n\034SellerOutOfStockNotificat" +
-      "ion\022\021\n\ttrader_id\030\001 \001(\r\"h\n!SellerOutOfSto" +
-      "ckNotificationReply\022\021\n\tseller_id\030\001 \001(\r\022\024" +
-      "\n\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005pri" +
-      "ce\030\004 \001(\rB\032\n\026org.example.data_typesP\001b\006pr" +
-      "oto3"
+      "\n\020data_types.proto\"N\n\017ElectionRequest\022\023\n" +
+      "\013contenderId\030\001 \001(\r\022\030\n\020contenderVoterId\030\002" +
+      " \001(\r\022\014\n\004path\030\003 \003(\r\"]\n\rElectionReply\022\017\n\007c" +
+      "hildId\030\001 \001(\r\022\023\n\013contenderId\030\002 \001(\r\022\030\n\020con" +
+      "tenderVoterId\030\003 \001(\r\022\014\n\004path\030\004 \003(\r\"-\n\031Ele" +
+      "ctionResultDeclaration\022\020\n\010leaderId\030\001 \001(\r" +
+      "\"I\n\022TransactionRequest\022\020\n\010buyer_id\030\001 \001(\r" +
+      "\022\024\n\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\"\'\n\020T" +
+      "ransactionReply\022\023\n\013status_code\030\001 \001(\010\"1\n\034" +
+      "SellerOutOfStockNotification\022\021\n\ttrader_i" +
+      "d\030\001 \001(\r\"h\n!SellerOutOfStockNotificationR" +
+      "eply\022\021\n\tseller_id\030\001 \001(\r\022\024\n\014product_name\030" +
+      "\002 \001(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005price\030\004 \001(\rB\032\n\026org" +
+      ".example.data_typesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -89,13 +90,13 @@ public final class DataTypes {
     internal_static_ElectionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ElectionRequest_descriptor,
-        new java.lang.String[] { "InitiatorId", "VoterId", "Path", });
+        new java.lang.String[] { "ContenderId", "ContenderVoterId", "Path", });
     internal_static_ElectionReply_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ElectionReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ElectionReply_descriptor,
-        new java.lang.String[] { "LeaderId", });
+        new java.lang.String[] { "ChildId", "ContenderId", "ContenderVoterId", "Path", });
     internal_static_ElectionResultDeclaration_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_ElectionResultDeclaration_fieldAccessorTable = new

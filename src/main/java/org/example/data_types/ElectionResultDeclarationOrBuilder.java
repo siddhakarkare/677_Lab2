@@ -8,7 +8,7 @@ public interface ElectionResultDeclarationOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 leader_id = 1;</code>
+   * <code>uint32 leaderId = 1;</code>
    */
   int getLeaderId();
 }

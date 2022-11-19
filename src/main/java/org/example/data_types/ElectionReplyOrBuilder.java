@@ -8,7 +8,30 @@ public interface ElectionReplyOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 leader_id = 1;</code>
+   * <code>uint32 childId = 1;</code>
    */
-  int getLeaderId();
+  int getChildId();
+
+  /**
+   * <code>uint32 contenderId = 2;</code>
+   */
+  int getContenderId();
+
+  /**
+   * <code>uint32 contenderVoterId = 3;</code>
+   */
+  int getContenderVoterId();
+
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  java.util.List<java.lang.Integer> getPathList();
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  int getPathCount();
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  int getPath(int index);
 }
