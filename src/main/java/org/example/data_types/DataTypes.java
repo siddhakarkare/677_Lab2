@@ -39,6 +39,16 @@ public final class DataTypes {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_TransactionReply_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SellerOutOfStockNotification_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SellerOutOfStockNotification_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SellerOutOfStockNotificationReply_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SellerOutOfStockNotificationReply_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -55,8 +65,12 @@ public final class DataTypes {
       "leader_id\030\001 \001(\r\"I\n\022TransactionRequest\022\020\n" +
       "\010buyer_id\030\001 \001(\r\022\024\n\014product_name\030\002 \001(\t\022\013\n" +
       "\003qty\030\003 \001(\r\"\'\n\020TransactionReply\022\023\n\013status" +
-      "_code\030\001 \001(\010B\032\n\026org.example.data_typesP\001b" +
-      "\006proto3"
+      "_code\030\001 \001(\010\"1\n\034SellerOutOfStockNotificat" +
+      "ion\022\021\n\ttrader_id\030\001 \001(\r\"h\n!SellerOutOfSto" +
+      "ckNotificationReply\022\021\n\tseller_id\030\001 \001(\r\022\024" +
+      "\n\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005pri" +
+      "ce\030\004 \001(\rB\032\n\026org.example.data_typesP\001b\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -100,6 +114,18 @@ public final class DataTypes {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TransactionReply_descriptor,
         new java.lang.String[] { "StatusCode", });
+    internal_static_SellerOutOfStockNotification_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_SellerOutOfStockNotification_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SellerOutOfStockNotification_descriptor,
+        new java.lang.String[] { "TraderId", });
+    internal_static_SellerOutOfStockNotificationReply_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_SellerOutOfStockNotificationReply_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SellerOutOfStockNotificationReply_descriptor,
+        new java.lang.String[] { "SellerId", "ProductName", "Qty", "Price", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

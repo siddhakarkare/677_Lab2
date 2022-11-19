@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677 Initial Setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
@@ -23,6 +24,21 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionServiceGrpc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionServiceGrpc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/Services.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TransactionServiceGrpc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TransactionServiceGrpc.java" afterDir="false" />
+=======
+    <list default="true" id="b9e0af1a-2061-4fee-9977-dd5606ba4798" name="Changes" comment="Lab2 677&#10;- Leader Election v1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionRequestServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionReplyServiceGrpc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionRequestServiceGrpc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionResultDeclarationServiceGrpc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ElectionServiceReplyGrpc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/DataTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/DataTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequestOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data_types/ElectionRequestOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service_impl/ElectionReplyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/Services.java" afterDir="false" />
+>>>>>>> d81739ce69547c0af4111c60e4ab9a3db7aac18b
       <change beforePath="$PROJECT_DIR$/src/main/resources/data_types.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data_types.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/services.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/services.proto" afterDir="false" />
     </list>
@@ -30,6 +46,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -120,7 +143,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668705878163</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Lab2 677&#10;- Errors removed ElectionServiceImpl">
+      <created>1668711016206</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668711016206</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Lab2 677&#10;- Leader Election v1">
+      <created>1668736136221</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668736136221</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +177,8 @@
     <MESSAGE value="Lab2 677&#10;- Some bug fixes" />
     <MESSAGE value="Lab2 677&#10;- Some bug fixes 2" />
     <MESSAGE value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- proto buf updated&#10;- service stubs created" />
+    <MESSAGE value="Lab2 677&#10;- Errors removed ElectionServiceImpl" />
+    <MESSAGE value="Lab2 677&#10;- Leader Election v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab2 677&#10;- Leader Election v1" />
   </component>
 </project>

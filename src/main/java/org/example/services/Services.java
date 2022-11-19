@@ -33,7 +33,10 @@ public final class Services {
       "ionReply\022\016.ElectionReply\032\026.google.protob" +
       "uf.Empty2H\n\022TransactionService\0222\n\010transa" +
       "ct\022\023.TransactionRequest\032\021.TransactionRep" +
-      "lyB\030\n\024org.example.servicesP\001b\006proto3"
+      "ly2k\n\027ResetSellerOnOutOfStock\022P\n\013resetSe" +
+      "ller\022\035.SellerOutOfStockNotification\032\".Se" +
+      "llerOutOfStockNotificationReplyB\030\n\024org.e" +
+      "xample.servicesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

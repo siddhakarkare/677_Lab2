@@ -23,7 +23,7 @@ public class Peer {
     private boolean sellerRole;
     private String sellerProduct;
     private int sellerQuantity = MAX_QUANTITY;
-    private double sellerPrice = 0;
+    private int sellerPrice = 0;
     private long request_id = 1;
     private static int ctr = 0;
 
@@ -119,7 +119,7 @@ public class Peer {
         return this.sellerQuantity;
     }
 
-    public double getSellerPrice() {
+    public int getSellerPrice() {
         return this.sellerPrice;
     }
 
@@ -158,7 +158,7 @@ public class Peer {
         return new Random().nextInt(MAX_QUANTITY);
     }
 
-    private double getProductPrice(){
+    private int getProductPrice(){
         return priceMap.get(this.getSellerProduct());
     }
 
@@ -173,6 +173,14 @@ public class Peer {
 
         // load the table written by the previous leader from the file
         sellerStockRecord = readSellerStockFromFile("leader.properties");
+    }
+
+    public Map<Integer, List<String>> getSellerStockRecord() {
+        return this.sellerStockRecord;
+    }
+
+    public void setSellerStockRecord(Map<Integer, List<String>> stock) {
+        this.sellerStockRecord = stock;
     }
 
     public static Map<Integer, List<String>> readSellerStockFromFile(String path) {

@@ -51,6 +51,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 16: {
+
             voterId_ = input.readUInt32();
             break;
           }
@@ -388,6 +389,7 @@ private static final long serialVersionUID = 0L;
       initiatorId_ = 0;
 
       voterId_ = 0;
+
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
       return this;
