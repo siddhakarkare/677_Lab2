@@ -6,12 +6,16 @@ import "data_types.proto";
 option java_package = "org.example.services";
 option java_multiple_files = true;
 
-service ElectionResultService {
+service ElectionResultDeclarationService {
   rpc declareResult(ElectionResultDeclaration) returns (google.protobuf.Empty);
 }
 
-service ElectionService {
+service ElectionRequestService {
   rpc electLeader(ElectionRequest) returns (ElectionReply);
+}
+
+service ElectionReplyService {
+  rpc sendElectionReply(ElectionReply) returns (google.protobuf.Empty);
 }
 
 service TransactionService {

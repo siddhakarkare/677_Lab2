@@ -139,6 +139,13 @@ public class Peer {
         this.neighbors.add(neighborId);
     }
 
+    public void setVoterId(int voterId){
+        this.voterId = voterId;
+    }
+
+    public int getVoterId(){
+        return this.voterId;
+    }
     private Boolean getRandomRoleFromSet(HashSet<Boolean> elements) {
         return elements.stream().skip(new Random().nextInt(elements.size())).findFirst().get();
     }

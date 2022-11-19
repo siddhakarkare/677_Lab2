@@ -17,17 +17,17 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
 
     @Override
     public void transact(TransactionRequest request, StreamObserver<TransactionReply> responseObserver) {
-        String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
-        if(peer.getQuantity() > 0) {
-            System.out.println(timeStamp + " >> Selling product " + peer.getProduct() + " to buyer " + request.getBuyerId());
-            peer.decrementQuantity();
-            responseObserver.onNext(TransactionReply.newBuilder().setStatusCode(Boolean.TRUE).build());
-        } else if(peer.getQuantity() == 0) {
-            System.out.println(timeStamp + " >> Can't selling product " + peer.getProduct() + " to buyer " + request.getBuyerId() + " as quantity is not available, resetting seller");
-            peer.reset();
-            responseObserver.onNext(TransactionReply.newBuilder().setStatusCode(Boolean.FALSE).build());
-        }
-
-        responseObserver.onCompleted();
+//        String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
+//        if(peer.getQuantity() > 0) {
+//            System.out.println(timeStamp + " >> Selling product " + peer.getProduct() + " to buyer " + request.getBuyerId());
+//            peer.decrementQuantity();
+//            responseObserver.onNext(TransactionReply.newBuilder().setStatusCode(Boolean.TRUE).build());
+//        } else if(peer.getQuantity() == 0) {
+//            System.out.println(timeStamp + " >> Can't selling product " + peer.getProduct() + " to buyer " + request.getBuyerId() + " as quantity is not available, resetting seller");
+//            peer.reset();
+//            responseObserver.onNext(TransactionReply.newBuilder().setStatusCode(Boolean.FALSE).build());
+//        }
+//
+//        responseObserver.onCompleted();
     }
 }

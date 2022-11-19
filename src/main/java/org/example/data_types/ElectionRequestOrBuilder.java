@@ -13,15 +13,20 @@ public interface ElectionRequestOrBuilder extends
   int getInitiatorId();
 
   /**
-   * <code>repeated uint32 path = 2;</code>
+   * <code>uint32 voter_id = 2;</code>
+   */
+  int getVoterId();
+
+  /**
+   * <code>repeated uint32 path = 3;</code>
    */
   java.util.List<java.lang.Integer> getPathList();
   /**
-   * <code>repeated uint32 path = 2;</code>
+   * <code>repeated uint32 path = 3;</code>
    */
   int getPathCount();
   /**
-   * <code>repeated uint32 path = 2;</code>
+   * <code>repeated uint32 path = 3;</code>
    */
   int getPath(int index);
 }

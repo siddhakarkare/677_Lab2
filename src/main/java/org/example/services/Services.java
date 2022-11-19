@@ -24,14 +24,16 @@ public final class Services {
   static {
     java.lang.String[] descriptorData = {
       "\n\016services.proto\032\033google/protobuf/empty." +
-      "proto\032\020data_types.proto2\\\n\025ElectionResul" +
-      "tService\022C\n\rdeclareResult\022\032.ElectionResu" +
-      "ltDeclaration\032\026.google.protobuf.Empty2B\n" +
-      "\017ElectionService\022/\n\013electLeader\022\020.Electi" +
-      "onRequest\032\016.ElectionReply2H\n\022Transaction" +
-      "Service\0222\n\010transact\022\023.TransactionRequest" +
-      "\032\021.TransactionReplyB\030\n\024org.example.servi" +
-      "cesP\001b\006proto3"
+      "proto\032\020data_types.proto2g\n ElectionResul" +
+      "tDeclarationService\022C\n\rdeclareResult\022\032.E" +
+      "lectionResultDeclaration\032\026.google.protob" +
+      "uf.Empty2I\n\026ElectionRequestService\022/\n\013el" +
+      "ectLeader\022\020.ElectionRequest\032\016.ElectionRe" +
+      "ply2S\n\024ElectionReplyService\022;\n\021sendElect" +
+      "ionReply\022\016.ElectionReply\032\026.google.protob" +
+      "uf.Empty2H\n\022TransactionService\0222\n\010transa" +
+      "ct\022\023.TransactionRequest\032\021.TransactionRep" +
+      "lyB\030\n\024org.example.servicesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
