@@ -25,11 +25,14 @@ public class ElectionReplyServiceImpl  extends ElectionReplyServiceGrpc.Election
 
     @Override
     public void sendElectionReply(ElectionReply request, StreamObserver<Empty> responseObserver) {
-        int leaderid = request.getLeaderId();
+        int contenderId = request.getContenderId();
+        int contenderVoterId = request.getContenderVoterId();
 
-        if(leaderid != this.peer.getId()){
+        if( contenderId != this.peer.getId() ){
             //found at least one bully
             //1. self.leaderId = max(self.leaderId,leaderId)
+
+            this.peer.setLeader( contenderId, contenderVoterId );
 
         }
 

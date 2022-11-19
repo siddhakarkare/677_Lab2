@@ -1,9 +1,5 @@
 package org.example.services;
 
-import io.grpc.stub.StreamObserver;
-import org.example.data_types.SellerOutOfStockNotification;
-import org.example.data_types.SellerOutOfStockNotificationReply;
-
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;

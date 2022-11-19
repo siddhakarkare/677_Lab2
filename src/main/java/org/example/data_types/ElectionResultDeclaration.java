@@ -80,10 +80,10 @@ private static final long serialVersionUID = 0L;
             org.example.data_types.ElectionResultDeclaration.class, org.example.data_types.ElectionResultDeclaration.Builder.class);
   }
 
-  public static final int LEADER_ID_FIELD_NUMBER = 1;
+  public static final int LEADERID_FIELD_NUMBER = 1;
   private int leaderId_;
   /**
-   * <code>uint32 leader_id = 1;</code>
+   * <code>uint32 leaderId = 1;</code>
    */
   public int getLeaderId() {
     return leaderId_;
@@ -148,7 +148,7 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + LEADER_ID_FIELD_NUMBER;
+    hash = (37 * hash) + LEADERID_FIELD_NUMBER;
     hash = (53 * hash) + getLeaderId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -394,13 +394,13 @@ private static final long serialVersionUID = 0L;
 
     private int leaderId_ ;
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 leaderId = 1;</code>
      */
     public int getLeaderId() {
       return leaderId_;
     }
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 leaderId = 1;</code>
      */
     public Builder setLeaderId(int value) {
       
@@ -409,7 +409,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 leaderId = 1;</code>
      */
     public Builder clearLeaderId() {
       

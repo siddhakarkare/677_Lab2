@@ -8,14 +8,14 @@ public interface ElectionRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 initiator_id = 1;</code>
+   * <code>uint32 contenderId = 1;</code>
    */
-  int getInitiatorId();
+  int getContenderId();
 
   /**
-   * <code>uint32 voter_id = 2;</code>
+   * <code>uint32 contenderVoterId = 2;</code>
    */
-  int getVoterId();
+  int getContenderVoterId();
 
   /**
    * <code>repeated uint32 path = 3;</code>

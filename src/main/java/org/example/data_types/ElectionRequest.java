@@ -16,8 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ElectionRequest() {
-    initiatorId_ = 0;
-    voterId_ = 0;
+    contenderId_ = 0;
+    contenderVoterId_ = 0;
     path_ = java.util.Collections.emptyList();
   }
 
@@ -47,12 +47,12 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            initiatorId_ = input.readUInt32();
+            contenderId_ = input.readUInt32();
             break;
           }
           case 16: {
 
-            voterId_ = input.readUInt32();
+            contenderVoterId_ = input.readUInt32();
             break;
           }
           case 24: {
@@ -112,22 +112,22 @@ private static final long serialVersionUID = 0L;
   }
 
   private int bitField0_;
-  public static final int INITIATOR_ID_FIELD_NUMBER = 1;
-  private int initiatorId_;
+  public static final int CONTENDERID_FIELD_NUMBER = 1;
+  private int contenderId_;
   /**
-   * <code>uint32 initiator_id = 1;</code>
+   * <code>uint32 contenderId = 1;</code>
    */
-  public int getInitiatorId() {
-    return initiatorId_;
+  public int getContenderId() {
+    return contenderId_;
   }
 
-  public static final int VOTER_ID_FIELD_NUMBER = 2;
-  private int voterId_;
+  public static final int CONTENDERVOTERID_FIELD_NUMBER = 2;
+  private int contenderVoterId_;
   /**
-   * <code>uint32 voter_id = 2;</code>
+   * <code>uint32 contenderVoterId = 2;</code>
    */
-  public int getVoterId() {
-    return voterId_;
+  public int getContenderVoterId() {
+    return contenderVoterId_;
   }
 
   public static final int PATH_FIELD_NUMBER = 3;
@@ -168,11 +168,11 @@ private static final long serialVersionUID = 0L;
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     getSerializedSize();
-    if (initiatorId_ != 0) {
-      output.writeUInt32(1, initiatorId_);
+    if (contenderId_ != 0) {
+      output.writeUInt32(1, contenderId_);
     }
-    if (voterId_ != 0) {
-      output.writeUInt32(2, voterId_);
+    if (contenderVoterId_ != 0) {
+      output.writeUInt32(2, contenderVoterId_);
     }
     if (getPathList().size() > 0) {
       output.writeUInt32NoTag(26);
@@ -190,13 +190,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (initiatorId_ != 0) {
+    if (contenderId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(1, initiatorId_);
+        .computeUInt32Size(1, contenderId_);
     }
-    if (voterId_ != 0) {
+    if (contenderVoterId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(2, voterId_);
+        .computeUInt32Size(2, contenderVoterId_);
     }
     {
       int dataSize = 0;
@@ -228,10 +228,10 @@ private static final long serialVersionUID = 0L;
     org.example.data_types.ElectionRequest other = (org.example.data_types.ElectionRequest) obj;
 
     boolean result = true;
-    result = result && (getInitiatorId()
-        == other.getInitiatorId());
-    result = result && (getVoterId()
-        == other.getVoterId());
+    result = result && (getContenderId()
+        == other.getContenderId());
+    result = result && (getContenderVoterId()
+        == other.getContenderVoterId());
     result = result && getPathList()
         .equals(other.getPathList());
     result = result && unknownFields.equals(other.unknownFields);
@@ -245,10 +245,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + INITIATOR_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getInitiatorId();
-    hash = (37 * hash) + VOTER_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getVoterId();
+    hash = (37 * hash) + CONTENDERID_FIELD_NUMBER;
+    hash = (53 * hash) + getContenderId();
+    hash = (37 * hash) + CONTENDERVOTERID_FIELD_NUMBER;
+    hash = (53 * hash) + getContenderVoterId();
     if (getPathCount() > 0) {
       hash = (37 * hash) + PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPathList().hashCode();
@@ -386,9 +386,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      initiatorId_ = 0;
+      contenderId_ = 0;
 
-      voterId_ = 0;
+      contenderVoterId_ = 0;
 
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
@@ -420,8 +420,8 @@ private static final long serialVersionUID = 0L;
       org.example.data_types.ElectionRequest result = new org.example.data_types.ElectionRequest(this);
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
-      result.initiatorId_ = initiatorId_;
-      result.voterId_ = voterId_;
+      result.contenderId_ = contenderId_;
+      result.contenderVoterId_ = contenderVoterId_;
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         path_ = java.util.Collections.unmodifiableList(path_);
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -476,11 +476,11 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(org.example.data_types.ElectionRequest other) {
       if (other == org.example.data_types.ElectionRequest.getDefaultInstance()) return this;
-      if (other.getInitiatorId() != 0) {
-        setInitiatorId(other.getInitiatorId());
+      if (other.getContenderId() != 0) {
+        setContenderId(other.getContenderId());
       }
-      if (other.getVoterId() != 0) {
-        setVoterId(other.getVoterId());
+      if (other.getContenderVoterId() != 0) {
+        setContenderVoterId(other.getContenderVoterId());
       }
       if (!other.path_.isEmpty()) {
         if (path_.isEmpty()) {
@@ -522,54 +522,54 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int initiatorId_ ;
+    private int contenderId_ ;
     /**
-     * <code>uint32 initiator_id = 1;</code>
+     * <code>uint32 contenderId = 1;</code>
      */
-    public int getInitiatorId() {
-      return initiatorId_;
+    public int getContenderId() {
+      return contenderId_;
     }
     /**
-     * <code>uint32 initiator_id = 1;</code>
+     * <code>uint32 contenderId = 1;</code>
      */
-    public Builder setInitiatorId(int value) {
+    public Builder setContenderId(int value) {
       
-      initiatorId_ = value;
+      contenderId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 initiator_id = 1;</code>
+     * <code>uint32 contenderId = 1;</code>
      */
-    public Builder clearInitiatorId() {
+    public Builder clearContenderId() {
       
-      initiatorId_ = 0;
+      contenderId_ = 0;
       onChanged();
       return this;
     }
 
-    private int voterId_ ;
+    private int contenderVoterId_ ;
     /**
-     * <code>uint32 voter_id = 2;</code>
+     * <code>uint32 contenderVoterId = 2;</code>
      */
-    public int getVoterId() {
-      return voterId_;
+    public int getContenderVoterId() {
+      return contenderVoterId_;
     }
     /**
-     * <code>uint32 voter_id = 2;</code>
+     * <code>uint32 contenderVoterId = 2;</code>
      */
-    public Builder setVoterId(int value) {
+    public Builder setContenderVoterId(int value) {
       
-      voterId_ = value;
+      contenderVoterId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 voter_id = 2;</code>
+     * <code>uint32 contenderVoterId = 2;</code>
      */
-    public Builder clearVoterId() {
+    public Builder clearContenderVoterId() {
       
-      voterId_ = 0;
+      contenderVoterId_ = 0;
       onChanged();
       return this;
     }

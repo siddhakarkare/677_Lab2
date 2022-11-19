@@ -4,15 +4,15 @@ option java_package = "org.example.data_types";
 option java_multiple_files = true;
 
 message ElectionRequest {
-  uint32 initiatorId = 1;
-  uint32 voterId = 2;
+  uint32 contenderId = 1;
+  uint32 contenderVoterId = 2;
   repeated uint32 path = 3;
 }
 
 message ElectionReply {
-  uint32 initiatorId = 1;
-  uint32 leaderId = 2;
-  uint32 leaderVoterId = 3;
+  uint32 childId = 1;
+  uint32 contenderId = 2;
+  uint32 contenderVoterId = 3;
   repeated uint32 path = 4;
 }
 

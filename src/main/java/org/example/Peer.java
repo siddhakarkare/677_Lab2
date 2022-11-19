@@ -34,6 +34,7 @@ public class Peer {
     private long request_id = 1;
     private static int ctr = 0;
 
+    private int replyCtr = 0;
     // schema: peerId, seller_prod, seller_qty, seller_price
     Map<Integer, List<String>> sellerStockRecord;
 

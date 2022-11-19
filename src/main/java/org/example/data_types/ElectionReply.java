@@ -16,7 +16,10 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ElectionReply() {
-    leaderId_ = 0;
+    childId_ = 0;
+    contenderId_ = 0;
+    contenderVoterId_ = 0;
+    path_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -45,7 +48,38 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            leaderId_ = input.readUInt32();
+            childId_ = input.readUInt32();
+            break;
+          }
+          case 16: {
+
+            contenderId_ = input.readUInt32();
+            break;
+          }
+          case 24: {
+
+            contenderVoterId_ = input.readUInt32();
+            break;
+          }
+          case 32: {
+            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              path_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000008;
+            }
+            path_.add(input.readUInt32());
+            break;
+          }
+          case 34: {
+            int length = input.readRawVarint32();
+            int limit = input.pushLimit(length);
+            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+              path_ = new java.util.ArrayList<java.lang.Integer>();
+              mutable_bitField0_ |= 0x00000008;
+            }
+            while (input.getBytesUntilLimit() > 0) {
+              path_.add(input.readUInt32());
+            }
+            input.popLimit(limit);
             break;
           }
           default: {
@@ -63,6 +97,9 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
+      if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        path_ = java.util.Collections.unmodifiableList(path_);
+      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -80,14 +117,56 @@ private static final long serialVersionUID = 0L;
             org.example.data_types.ElectionReply.class, org.example.data_types.ElectionReply.Builder.class);
   }
 
-  public static final int LEADER_ID_FIELD_NUMBER = 1;
-  private int leaderId_;
+  private int bitField0_;
+  public static final int CHILDID_FIELD_NUMBER = 1;
+  private int childId_;
   /**
-   * <code>uint32 leader_id = 1;</code>
+   * <code>uint32 childId = 1;</code>
    */
-  public int getLeaderId() {
-    return leaderId_;
+  public int getChildId() {
+    return childId_;
   }
+
+  public static final int CONTENDERID_FIELD_NUMBER = 2;
+  private int contenderId_;
+  /**
+   * <code>uint32 contenderId = 2;</code>
+   */
+  public int getContenderId() {
+    return contenderId_;
+  }
+
+  public static final int CONTENDERVOTERID_FIELD_NUMBER = 3;
+  private int contenderVoterId_;
+  /**
+   * <code>uint32 contenderVoterId = 3;</code>
+   */
+  public int getContenderVoterId() {
+    return contenderVoterId_;
+  }
+
+  public static final int PATH_FIELD_NUMBER = 4;
+  private java.util.List<java.lang.Integer> path_;
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  public java.util.List<java.lang.Integer>
+      getPathList() {
+    return path_;
+  }
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  public int getPathCount() {
+    return path_.size();
+  }
+  /**
+   * <code>repeated uint32 path = 4;</code>
+   */
+  public int getPath(int index) {
+    return path_.get(index);
+  }
+  private int pathMemoizedSerializedSize = -1;
 
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
@@ -103,8 +182,22 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (leaderId_ != 0) {
-      output.writeUInt32(1, leaderId_);
+    getSerializedSize();
+    if (childId_ != 0) {
+      output.writeUInt32(1, childId_);
+    }
+    if (contenderId_ != 0) {
+      output.writeUInt32(2, contenderId_);
+    }
+    if (contenderVoterId_ != 0) {
+      output.writeUInt32(3, contenderVoterId_);
+    }
+    if (getPathList().size() > 0) {
+      output.writeUInt32NoTag(34);
+      output.writeUInt32NoTag(pathMemoizedSerializedSize);
+    }
+    for (int i = 0; i < path_.size(); i++) {
+      output.writeUInt32NoTag(path_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +208,31 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (leaderId_ != 0) {
+    if (childId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(1, leaderId_);
+        .computeUInt32Size(1, childId_);
+    }
+    if (contenderId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(2, contenderId_);
+    }
+    if (contenderVoterId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(3, contenderVoterId_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < path_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeUInt32SizeNoTag(path_.get(i));
+      }
+      size += dataSize;
+      if (!getPathList().isEmpty()) {
+        size += 1;
+        size += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(dataSize);
+      }
+      pathMemoizedSerializedSize = dataSize;
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -135,8 +250,14 @@ private static final long serialVersionUID = 0L;
     org.example.data_types.ElectionReply other = (org.example.data_types.ElectionReply) obj;
 
     boolean result = true;
-    result = result && (getLeaderId()
-        == other.getLeaderId());
+    result = result && (getChildId()
+        == other.getChildId());
+    result = result && (getContenderId()
+        == other.getContenderId());
+    result = result && (getContenderVoterId()
+        == other.getContenderVoterId());
+    result = result && getPathList()
+        .equals(other.getPathList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,8 +269,16 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + LEADER_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getLeaderId();
+    hash = (37 * hash) + CHILDID_FIELD_NUMBER;
+    hash = (53 * hash) + getChildId();
+    hash = (37 * hash) + CONTENDERID_FIELD_NUMBER;
+    hash = (53 * hash) + getContenderId();
+    hash = (37 * hash) + CONTENDERVOTERID_FIELD_NUMBER;
+    hash = (53 * hash) + getContenderVoterId();
+    if (getPathCount() > 0) {
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPathList().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -283,8 +412,14 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      leaderId_ = 0;
+      childId_ = 0;
 
+      contenderId_ = 0;
+
+      contenderVoterId_ = 0;
+
+      path_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000008);
       return this;
     }
 
@@ -311,7 +446,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.example.data_types.ElectionReply buildPartial() {
       org.example.data_types.ElectionReply result = new org.example.data_types.ElectionReply(this);
-      result.leaderId_ = leaderId_;
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
+      result.childId_ = childId_;
+      result.contenderId_ = contenderId_;
+      result.contenderVoterId_ = contenderVoterId_;
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        path_ = java.util.Collections.unmodifiableList(path_);
+        bitField0_ = (bitField0_ & ~0x00000008);
+      }
+      result.path_ = path_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -360,8 +505,24 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(org.example.data_types.ElectionReply other) {
       if (other == org.example.data_types.ElectionReply.getDefaultInstance()) return this;
-      if (other.getLeaderId() != 0) {
-        setLeaderId(other.getLeaderId());
+      if (other.getChildId() != 0) {
+        setChildId(other.getChildId());
+      }
+      if (other.getContenderId() != 0) {
+        setContenderId(other.getContenderId());
+      }
+      if (other.getContenderVoterId() != 0) {
+        setContenderVoterId(other.getContenderVoterId());
+      }
+      if (!other.path_.isEmpty()) {
+        if (path_.isEmpty()) {
+          path_ = other.path_;
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          ensurePathIsMutable();
+          path_.addAll(other.path_);
+        }
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -391,29 +552,148 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
-    private int leaderId_ ;
+    private int childId_ ;
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 childId = 1;</code>
      */
-    public int getLeaderId() {
-      return leaderId_;
+    public int getChildId() {
+      return childId_;
     }
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 childId = 1;</code>
      */
-    public Builder setLeaderId(int value) {
+    public Builder setChildId(int value) {
       
-      leaderId_ = value;
+      childId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 leader_id = 1;</code>
+     * <code>uint32 childId = 1;</code>
      */
-    public Builder clearLeaderId() {
+    public Builder clearChildId() {
       
-      leaderId_ = 0;
+      childId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int contenderId_ ;
+    /**
+     * <code>uint32 contenderId = 2;</code>
+     */
+    public int getContenderId() {
+      return contenderId_;
+    }
+    /**
+     * <code>uint32 contenderId = 2;</code>
+     */
+    public Builder setContenderId(int value) {
+      
+      contenderId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint32 contenderId = 2;</code>
+     */
+    public Builder clearContenderId() {
+      
+      contenderId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int contenderVoterId_ ;
+    /**
+     * <code>uint32 contenderVoterId = 3;</code>
+     */
+    public int getContenderVoterId() {
+      return contenderVoterId_;
+    }
+    /**
+     * <code>uint32 contenderVoterId = 3;</code>
+     */
+    public Builder setContenderVoterId(int value) {
+      
+      contenderVoterId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint32 contenderVoterId = 3;</code>
+     */
+    public Builder clearContenderVoterId() {
+      
+      contenderVoterId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.util.List<java.lang.Integer> path_ = java.util.Collections.emptyList();
+    private void ensurePathIsMutable() {
+      if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        path_ = new java.util.ArrayList<java.lang.Integer>(path_);
+        bitField0_ |= 0x00000008;
+       }
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public java.util.List<java.lang.Integer>
+        getPathList() {
+      return java.util.Collections.unmodifiableList(path_);
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public int getPathCount() {
+      return path_.size();
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public int getPath(int index) {
+      return path_.get(index);
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public Builder setPath(
+        int index, int value) {
+      ensurePathIsMutable();
+      path_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public Builder addPath(int value) {
+      ensurePathIsMutable();
+      path_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public Builder addAllPath(
+        java.lang.Iterable<? extends java.lang.Integer> values) {
+      ensurePathIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, path_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated uint32 path = 4;</code>
+     */
+    public Builder clearPath() {
+      path_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
