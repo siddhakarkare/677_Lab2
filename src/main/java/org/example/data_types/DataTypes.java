@@ -62,16 +62,17 @@ public final class DataTypes {
       "\013contenderId\030\001 \001(\r\022\030\n\020contenderVoterId\030\002" +
       " \001(\r\022\014\n\004path\030\003 \003(\r\"]\n\rElectionReply\022\017\n\007c" +
       "hildId\030\001 \001(\r\022\023\n\013contenderId\030\002 \001(\r\022\030\n\020con" +
-      "tenderVoterId\030\003 \001(\r\022\014\n\004path\030\004 \003(\r\"-\n\031Ele" +
+      "tenderVoterId\030\003 \001(\r\022\014\n\004path\030\004 \003(\r\"R\n\031Ele" +
       "ctionResultDeclaration\022\020\n\010leaderId\030\001 \001(\r" +
-      "\"I\n\022TransactionRequest\022\020\n\010buyer_id\030\001 \001(\r" +
-      "\022\024\n\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\"\'\n\020T" +
-      "ransactionReply\022\023\n\013status_code\030\001 \001(\010\"1\n\034" +
-      "SellerOutOfStockNotification\022\021\n\ttrader_i" +
-      "d\030\001 \001(\r\"h\n!SellerOutOfStockNotificationR" +
-      "eply\022\021\n\tseller_id\030\001 \001(\r\022\024\n\014product_name\030" +
-      "\002 \001(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005price\030\004 \001(\rB\032\n\026org" +
-      ".example.data_typesP\001b\006proto3"
+      "\022\025\n\rleaderVoterId\030\002 \001(\r\022\014\n\004path\030\003 \003(\r\"I\n" +
+      "\022TransactionRequest\022\020\n\010buyer_id\030\001 \001(\r\022\024\n" +
+      "\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\"\'\n\020Tran" +
+      "sactionReply\022\023\n\013status_code\030\001 \001(\010\"1\n\034Sel" +
+      "lerOutOfStockNotification\022\021\n\ttrader_id\030\001" +
+      " \001(\r\"h\n!SellerOutOfStockNotificationRepl" +
+      "y\022\021\n\tseller_id\030\001 \001(\r\022\024\n\014product_name\030\002 \001" +
+      "(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005price\030\004 \001(\rB\032\n\026org.ex" +
+      "ample.data_typesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -102,7 +103,7 @@ public final class DataTypes {
     internal_static_ElectionResultDeclaration_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ElectionResultDeclaration_descriptor,
-        new java.lang.String[] { "LeaderId", });
+        new java.lang.String[] { "LeaderId", "LeaderVoterId", "Path", });
     internal_static_TransactionRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_TransactionRequest_fieldAccessorTable = new

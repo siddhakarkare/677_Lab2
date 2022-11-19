@@ -14,10 +14,6 @@ service ElectionRequestService {
   rpc electLeader(ElectionRequest) returns (ElectionReply);
 }
 
-service ElectionReplyService {
-  rpc sendElectionReply(ElectionReply) returns (google.protobuf.Empty);
-}
-
 service TransactionService {
   rpc transact(TransactionRequest) returns (TransactionReply);
 }

@@ -1,12 +1,10 @@
 package org.example;
 
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.example.service_impl.ElectionRequestServiceImpl;
-import org.example.service_impl.ElectionResultImpl;
+import org.example.service_impl.ElectionResultServiceImpl;
 import org.example.service_impl.TransactionServiceImpl;
 
 import java.io.IOException;
@@ -106,7 +104,7 @@ public class Main {
             new Thread(() -> {
                 try {
                     Server server = ServerBuilder.forPort(peer.getPort()).addService(new ElectionRequestServiceImpl(peer))
-                            .addService(new ElectionResultImpl(peer))
+                            .addService(new ElectionResultServiceImpl(peer))
                             .addService(new TransactionServiceImpl(peer))
                             .build();
 

@@ -18,6 +18,10 @@ message ElectionReply {
 
 message ElectionResultDeclaration {
   uint32 leaderId = 1;
+  uint32 leaderVoterId = 2;
+  repeated uint32 path = 3;
+
+
 }
 
 message TransactionRequest {

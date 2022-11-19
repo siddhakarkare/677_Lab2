@@ -11,4 +11,22 @@ public interface ElectionResultDeclarationOrBuilder extends
    * <code>uint32 leaderId = 1;</code>
    */
   int getLeaderId();
+
+  /**
+   * <code>uint32 leaderVoterId = 2;</code>
+   */
+  int getLeaderVoterId();
+
+  /**
+   * <code>repeated uint32 path = 3;</code>
+   */
+  java.util.List<java.lang.Integer> getPathList();
+  /**
+   * <code>repeated uint32 path = 3;</code>
+   */
+  int getPathCount();
+  /**
+   * <code>repeated uint32 path = 3;</code>
+   */
+  int getPath(int index);
 }
