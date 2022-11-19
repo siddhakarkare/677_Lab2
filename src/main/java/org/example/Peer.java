@@ -1,9 +1,12 @@
 package org.example;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class Peer {
+    private int leaderTransactions = 0;
     private static final HashSet<Boolean> ROLES = new HashSet<>((Arrays.asList(true, false)));
     private static final HashSet<String> PRODUCTS = new HashSet<>((Arrays.asList("fish", "boar", "salt")));
     private static final Map<String, Integer> priceMap = new HashMap<String, Integer>()
@@ -62,6 +65,13 @@ public class Peer {
     }
 
     public void reset(int code) {
+        leaderTransactions = 0;
+        if(isLeader()) {
+            // write the records to the file
+            writeSellerStocktoFile(sellerStockRecord, "leader.properties");
+            // remove the leader thing and reset the whole peer
+            code = 2;
+        }
         if(code == 0) {
             // reset only the buyer part of the peer
             this.buyerProduct = getRandomProdFromSet(PRODUCTS);
@@ -183,6 +193,10 @@ public class Peer {
         sellerStockRecord = readSellerStockFromFile("leader.properties");
     }
 
+    public Boolean isLeader() {
+        return !isSeller() & !isBuyer();
+    }
+
     public Map<Integer, List<String>> getSellerStockRecord() {
         return this.sellerStockRecord;
     }
@@ -202,23 +216,47 @@ public class Peer {
         }
         for (final Map.Entry<Object, Object> entry : prop.entrySet()) {
             String propValue = (String) entry.getValue();
-            map.put((Integer) entry.getKey(), Arrays.asList(propValue.split(",")));
+            map.put((Integer) entry.getKey(), Arrays.asList(propValue.split("::")));
         }
         return map;
     }
 
-    public void setLeader(int leaderId, int voterId){
-        this.leaderMap.put("id",leaderId);
-        this.leaderMap.put("voterId",voterId);
+    public static void writeSellerStocktoFile(Map<Integer, List<String>> sellerStockRecord, String path) {
+        Map<Integer, String> prop = new HashMap<>();
+        for (final Map.Entry<Integer, List<String>> entry : sellerStockRecord.entrySet()) {
+            List<String> propValue = entry.getValue();
+            String newValue = String.join("::", propValue);
+            prop.put(entry.getKey(), newValue);
+        }
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(path));
+            oos.writeObject(prop);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
+        }
     }
 
-    public int getLeaderId(){
+    public void setLeader(int leaderId, int voterId) {
+        this.leaderMap.put("id", leaderId);
+        this.leaderMap.put("voterId", voterId);
+    }
+
+    public int getLeaderId() {
         return this.leaderMap.get("id");
 
     }
 
-    public int getLeaderVoterId(){
+    public int getLeaderVoterId() {
         return this.leaderMap.get("voterId");
+    }
 
+    public void incrementTransactions() {
+        this.leaderTransactions++;
+    }
+
+    public int getLeaderTransactionCount() {
+        return this.leaderTransactions;
     }
 }

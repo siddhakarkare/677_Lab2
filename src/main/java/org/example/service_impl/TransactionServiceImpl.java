@@ -13,6 +13,7 @@ import java.util.*;
 
 public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionServiceImplBase {
     private Peer peer;
+    private static final int MAX_TRANSACTIONS = 100;
 
     public TransactionServiceImpl(Peer peer) {
         this.peer = peer;
@@ -69,6 +70,11 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
                     newDetails.add(String.valueOf(sellerQuantity));
                     newDetails.add(String.valueOf(oldDetails.get(2)));
                     totalStock.replace(seller, newDetails);
+                }
+                peer.incrementTransactions();
+                if(peer.getLeaderTransactionCount() > MAX_TRANSACTIONS) {
+                    peer.reset(2);
+                    // TODO: TRIGGER LEADER ELECTION HERE!
                 }
             }
 
