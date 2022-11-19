@@ -12,6 +12,13 @@ public class Peer {
             put("boar", 10);
             put("salt", 10);
     }};
+
+    private Map<String, Integer> leaderMap = new HashMap<String, Integer>()
+    {{
+        put("id", -1);
+        put("voterId", -1);
+    }};
+
     private static final int MAX_QUANTITY = 100;
     private final int peerId;
     private int voterId = 0;
@@ -197,5 +204,20 @@ public class Peer {
             map.put((Integer) entry.getKey(), Arrays.asList(propValue.split(",")));
         }
         return map;
+    }
+
+    public void setLeader(int leaderId, int voterId){
+        this.leaderMap.put("id",leaderId);
+        this.leaderMap.put("voterId",voterId);
+    }
+
+    public int getLeaderId(){
+        return this.leaderMap.get("id");
+
+    }
+
+    public int getLeaderVoterId(){
+        return this.leaderMap.get("voterId");
+
     }
 }

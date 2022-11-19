@@ -13,6 +13,8 @@ import org.example.services.ElectionServiceReplyGrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.ElectionRequestServiceImplBase {
@@ -27,32 +29,32 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
     public void electLeader(ElectionRequest request, StreamObserver<ElectionReply> responseObserver) {
 
         int initiatorId = request.getInitiatorId();
-//        int initiator_voterId = request.ge
+        int initiatorVoterId = request.getVoterId();
         List<Integer> path = new ArrayList<>(request.getPathList());
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         System.out.println(timeStamp + " \nElection request received at peer " + peer.getId() + ":\n" + request);
 
-        if( initiatorId > this.peer.getVoterId() ) {//Tell all the neighbors about the bully
-            path.add(peer.getId());
-            boolean isLeaf = false;
-            for (int neighbor : peer.getNeighbors()) {
-                if(!path.contains(neighbor)) {//don't process if already visited at this peer
-                    sendElectionToNeighbor(neighbor, initiatorId, path);
-                    isLeaf = true;
-                }
+        if( initiatorVoterId > this.peer.getLeaderVoterId()){ // found bully
+            this.peer.setLeader(initiatorId,initiatorVoterId);
+            path = new ArrayList<>(Arrays.asList()); // Clear path
+        }
+
+
+        path.add(this.peer.getId());
+        boolean isLeaf = false;
+        for (int neighbor : peer.getNeighbors()) {
+            if(!path.contains(neighbor)) {//don't process if already visited at this peer
+                sendElectionToNeighbor(neighbor, initiatorId, path);
+                isLeaf = true;
             }
+        }
 
             if(isLeaf){ //no unvisited neighbors found. return result for self
 
                 sendElectionReply(initiatorId,peer.getId(),initiatorId);
             }
 
-        }
-        else{
-            //Be the Bully
-            //send itself as the leader
-            denyElectionToParent()
 
             sendElectionToNeighbor(neighbor, initiatorId, path);
 
