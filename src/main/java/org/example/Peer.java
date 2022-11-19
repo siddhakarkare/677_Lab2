@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.FileInputStream;
 import java.util.*;
 
 public class Peer {
@@ -12,10 +13,10 @@ public class Peer {
             put("salt", 10);
     }};
     private static final int MAX_QUANTITY = 100;
-    private final int peer_id;
-    private int voter_id = 0;
+    private final int peerId;
+    private int voterId = 0;
     private final int port;
-    private ArrayList<Integer> neighbors;
+    private List<Integer> neighbors;
     private boolean buyerRole;
     private String buyerProduct;
     private int buyerQuantity = MAX_QUANTITY;
@@ -26,8 +27,11 @@ public class Peer {
     private long request_id = 1;
     private static int ctr = 0;
 
-    public Peer(int port, ArrayList<Integer> neighbors) {
-        this.peer_id = port;
+    // schema: peerId, seller_prod, seller_qty, seller_price
+    Map<Integer, List<String>> sellerStockRecord;
+
+    public Peer(int port, List<Integer> neighbors) {
+        this.peerId = port;
         this.port = port;
         this.neighbors = neighbors;
 
@@ -46,7 +50,7 @@ public class Peer {
             this.sellerPrice = getProductPrice();
         }
 
-        this.voter_id = getNextCount();
+        this.voterId = getNextCount();
     }
 
     public void reset(int code) {
@@ -100,10 +104,10 @@ public class Peer {
     }
 
     public int getId() {
-        return peer_id;
+        return peerId;
     }
 
-    public ArrayList<Integer> getNeighbors() {
+    public List<Integer> getNeighbors() {
         return neighbors;
     }
 
@@ -144,14 +148,39 @@ public class Peer {
     }
 
     private int getRandomQty(){
-        return new Random().nextInt(this.MAX_QUANTITY);
+        return new Random().nextInt(MAX_QUANTITY);
     }
 
     private double getProductPrice(){
         return priceMap.get(this.getSellerProduct());
     }
 
-    private int getNextCount(){
-        return this.ctr ++ ; // return and then increment
+    private static int getNextCount(){
+        return ctr ++ ; // return and then increment
+    }
+
+    // set this peer as the leader => this peer will perform all transactions moving forward
+    public void setLeader() {
+        this.buyerRole = false;
+        this.sellerRole = false;
+
+        // load the table written by the previous leader from the file
+        sellerStockRecord = readSellerStockFromFile("leader.properties");
+    }
+
+    public static Map<Integer, List<String>> readSellerStockFromFile(String path) {
+        Properties prop = new Properties();
+        Map<Integer, List<String>> map = new HashMap<>();
+        try (FileInputStream inputStream = new FileInputStream(path)) {
+            prop.load(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not load the leader properties file at: " + path + "\nError message: " + e.getMessage());
+        }
+        for (final Map.Entry<Object, Object> entry : prop.entrySet()) {
+            String propValue = (String) entry.getValue();
+            map.put((Integer) entry.getKey(), Arrays.asList(propValue.split(",")));
+        }
+        return map;
     }
 }

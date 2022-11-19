@@ -25,3 +25,14 @@ message TransactionRequest {
 message TransactionReply {
   bool status_code = 1;
 }
+
+message SellerOutOfStockNotification {
+  uint32 trader_id = 1;
+}
+
+message SellerOutOfStockNotificationReply {
+  uint32 seller_id = 1;
+  string product_name = 2;
+  uint32 qty = 3;
+  uint32 price = 4;
+}

@@ -125,7 +125,10 @@ public class Main {
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
-            System.out.println("\nPeer:"+i+"\n  Port:"+peers[i].getPort()+"\n  BuyerRole:"+peers[i].getBuyerRole()+"\n  SellerRole:"+peers[i].getSellerRole()+"\n  BuyerProduct:"+peers[i].getBuyerProduct()+"\n  SellerProduct:"+peers[i].getSellerProduct()+"\n  BuyerQuantity:"+peers[i].getBuyerQuantity()+"\n  SellerQuantity:"+peers[i].getSellerQuantity());
+            System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
+                    + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct() +
+                    "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
+                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity());
             System.out.print("  Neighbors: ");
             for(int neigh : peers[i].getNeighbors()){
                 System.out.print(" "+portPeerMap.get(neigh)+" ");

@@ -11,4 +11,17 @@ public interface ElectionRequestOrBuilder extends
    * <code>uint32 initiator_id = 1;</code>
    */
   int getInitiatorId();
+
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  java.util.List<java.lang.Integer> getPathList();
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  int getPathCount();
+  /**
+   * <code>repeated uint32 path = 2;</code>
+   */
+  int getPath(int index);
 }

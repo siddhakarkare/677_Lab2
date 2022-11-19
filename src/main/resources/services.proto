@@ -17,3 +17,7 @@ service ElectionService {
 service TransactionService {
   rpc transact(TransactionRequest) returns (TransactionReply);
 }
+
+service ResetSellerOnOutOfStock {
+  rpc resetSeller(SellerOutOfStockNotification) returns (SellerOutOfStockNotificationReply);
+}
