@@ -26,8 +26,9 @@ public class Main {
 
     private static Peer[] peers;
     private static void electLeaderBully(int initiatorId, int voterId) {
-        List<Integer> path = new ArrayList<>(initiatorId);
 
+        List<Integer> path = new ArrayList<>(initiatorId);
+        //Start leader election
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", initiatorId).usePlaintext().build();
         ElectionRequestServiceGrpc.ElectionRequestServiceBlockingStub stub = ElectionRequestServiceGrpc.newBlockingStub(channel);
         System.out.println("LeaderId: " + initiatorId + " sending lookup to neighbor: " + initiatorId);
@@ -47,6 +48,7 @@ public class Main {
         ArrayList<Integer> portList = new ArrayList<>(Arrays.asList(ports));
         Collections.shuffle(portList);
 
+        //Adjacency Metrix
         boolean[][] adj = {
                 {false,true,true,true,false,false}, //0
                 {true,false,false,true,true,false}, //1
@@ -57,7 +59,7 @@ public class Main {
         };
         HashMap<Integer,Integer> portPeerMap = new HashMap<>();
         peers = new Peer[N];
-        for(int i = 0;i < N; i++){ //Create N peers
+        for(int i = 0;i < N; i++){ //Create 6 peers
             int port = portList.get(i);
             portPeerMap.put(port,i);
             boolean[] curr_adj = adj[i];
@@ -69,9 +71,11 @@ public class Main {
 
             peers[i] = new Peer(port, neighbors);
             Peer peer = peers[i];
-
+            //Assign services with every peer
+            // Start running all peers in parallel
             new Thread(() -> {
                 try {
+
                     Server server = ServerBuilder.forPort(peer.getPort()).addService(new ElectionRequestServiceImpl(peer))
                             .addService(new ElectionRequestServiceImpl(peer))
                             .addService(new LeaderResignationNotificationServiceImpl(peer))
@@ -127,11 +131,10 @@ public class Main {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    if (peer.isBuyer()) { // submit purchase request to the trader
-                        System.out.println("Asking Leader:"+peer.getLeaderId());
+                    if (peer.isBuyer()) { // submit purchase request to the trader if the current peer is buyer
                         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", peer.getLeaderId()).usePlaintext().build(); //submit request only to leader
                         TransactionServiceGrpc.TransactionServiceBlockingStub stub = TransactionServiceGrpc.newBlockingStub(channel);
-                        System.out.println("Triggering transaction by" + peer.getId());
+                        System.out.println(getTimeStamp()+ "Triggering transaction by" + peer.getId());
                         stub.transact(TransactionRequest.newBuilder()
                             .setBuyerId(peer.getId())
                             .setProductName(peer.getBuyerProduct())
@@ -149,7 +152,7 @@ public class Main {
     }
 
     private static void writeStocksToFile(){
-//        peers
+    //Write stock of all sellers in a file
         String path = "leader.properties";
         Map<Integer, String> stock = new HashMap<>();
         for ( int i = 0; i<peers.length; i++ ) {

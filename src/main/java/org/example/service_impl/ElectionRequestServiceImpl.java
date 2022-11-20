@@ -35,28 +35,17 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
         int contenderVoterId = request.getContenderVoterId();
 
         if(path.contains(this.peer.getId()) || (contenderVoterId == this.peer.getLeaderVoterId() && contenderVoterId != this.peer.getVoterId())){
-//            System.out.println(this.peer.getId()+","+path+","+contenderVoterId+","+this.peer.getLeaderVoterId());
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
             return;
         }
-//        System.out.println(this.peer.getId()+" not in "+path);
-//        System.out.println("IsInitiator:"+request.getIsInitiator());
-
-
-//        System.out.println(this.peer.getId()+"ContenderId:"+contenderId+" ContenderVoterId:"+contenderVoterId);
-
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         if (contenderVoterId > this.peer.getLeaderVoterId()) { // found bully
-//            System.out.println(this.peer.getId()+"Found Bully");
             this.peer.setLeader(contenderId, contenderVoterId);
             path.add(this.peer.getId());
         }
         else {
-            //be the bully
-//            System.out.println(this.peer.getId()+"Be the bully with voter id"+this.peer.getLeaderVoterId());
-//            System.out.println("Bullying over"+contenderVoterId);
             path = new ArrayList<>(); // Clear path
             path.add(this.peer.getId());
         }
@@ -69,7 +58,6 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
                     int electedLocalLeaderVoterId = reply.getContenderVoterId();
 
                     if (electedLocalLeaderVoterId > this.peer.getLeaderVoterId()) { // found bully
-//                        System.out.println(this.peer.getId() + "Found bully in reply");
                         this.peer.setLeader(electedLocalLeaderId, electedLocalLeaderVoterId);
                     }
                 }
@@ -78,7 +66,7 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
 
         if (this.peer.getLeaderId() == this.peer.getId()) { //new leader found
-            System.out.println("LOCAL LEADER FOUND:"+this.peer.getId());
+            System.out.println(getTimeStamp()+"LOCAL LEADER FOUND:"+this.peer.getId());
             //Send I won Message to network
             path = new ArrayList<>(this.peer.getId());
             for (int neighbor : peer.getNeighbors()) {
@@ -93,10 +81,10 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
                 .setChildId(this.peer.getId()) //so that parent can track who all replied to the election
                 .build();
 
-            System.out.println("Returning leader:"+this.peer.getLeaderId()+" with voter id:"+this.peer.getLeaderVoterId());
+            System.out.println(getTimeStamp()+"Returning leader:"+this.peer.getLeaderId()+" with voter id:"+this.peer.getLeaderVoterId());
         }
         if (request.getIsInitiator()) { //if this peer initiated the election
-            System.out.println("****************Inform new leader to read the file****************");
+            System.out.println(getTimeStamp()+"****************Inform new leader to read the file****************");
             assignTrader(this.peer.getId(), this.peer.getLeaderId());
         }
         responseObserver.onNext(reply);
@@ -104,9 +92,9 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
     }
 
     private ElectionReply sendElectionToNeighbor(int neighborId, int contenderId, int contenderVoterId, List<Integer> path) {
+        //Send grpc call to send election message
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neighborId).usePlaintext().build();
         ElectionRequestServiceGrpc.ElectionRequestServiceBlockingStub stub = ElectionRequestServiceGrpc.newBlockingStub(channel);
-//        System.out.println("LeaderId: " + contenderId + " sending election to neighbor: " + neighborId);
         ElectionReply reply = stub.electLeader(ElectionRequest.newBuilder()
             .addAllPath(path)
             .setContenderVoterId(contenderVoterId)
@@ -118,9 +106,10 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
     }
 
     private void declareResult(int neighborId, List<Integer> path) {
+        //Send election result grpc call to 
+
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neighborId).usePlaintext().build();
         ElectionResultServiceGrpc.ElectionResultServiceBlockingStub stub = ElectionResultServiceGrpc.newBlockingStub(channel);
-//        System.out.println("Current Node" + this.peer.getId() + " local leader: " + this.peer.getId());
         stub.declareResult(ElectionResultDeclaration.newBuilder()
             .setLeaderId(this.peer.getLeaderId())
             .addAllPath(path)
@@ -129,11 +118,17 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
     }
 
     private void assignTrader(int initiator, int trader) {
+        //Inform the new trader that its the new network leader
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", trader).usePlaintext().build();
         LeaderInitializationServiceGrpc.LeaderInitializationServiceBlockingStub stub = LeaderInitializationServiceGrpc.newBlockingStub(channel);
-        System.out.println("Initializing new trader: " + trader + ", initiator node is: " + initiator);
+        System.out.println(getTimeStamp()+"Initializing new trader: " + trader + ", initiator node is: " + initiator);
         stub.initiateLeader(LeaderInitializationRequest.newBuilder().setInitiatorId(initiator).build());
         channel.shutdown();
+    }
+
+    private static String getTimeStamp(){
+        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss.SSS").format(new java.util.Date());
+        return "["+timestamp+"] ";
     }
 
 }

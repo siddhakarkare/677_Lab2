@@ -8,6 +8,7 @@ import org.example.Peer;
 import org.example.data_types.*;
 import org.example.services.ElectionResultServiceGrpc;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +21,19 @@ public class ElectionResultServiceImpl extends ElectionResultServiceGrpc.Electio
 
     @Override
     public void declareResult(ElectionResultDeclaration request, StreamObserver<Empty> responseObserver) {
+        //Process result declaration
         long clock = request.getClock();
         this.peer.updateClock(clock);
         List<Integer> path = new ArrayList<>(request.getPathList());
         if(path.contains(this.peer.getId())){
+            //This peer already processed, return
             responseObserver.onNext(Empty.getDefaultInstance());
             responseObserver.onCompleted();
             return;
         }
         int leaderId = request.getLeaderId();
 
-        System.out.println("At peer"+this.peer.getId()+"Declaring leader:"+leaderId);
+        System.out.println(getTimeStamp()+"At peer"+this.peer.getId()+"Declaring leader:"+leaderId);
         int leaderVoterId = request.getLeaderVoterId();
 
         if( leaderVoterId > this.peer.getLeaderVoterId() ) { //declare further only if bullier found
@@ -48,14 +51,19 @@ public class ElectionResultServiceImpl extends ElectionResultServiceGrpc.Electio
     }
 
     private void propagateResult(int destPort, int leaderId, int leaderVoterId, List<Integer> path){
+        //Propagate election declaration
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", destPort).usePlaintext().build();
         ElectionResultServiceGrpc.ElectionResultServiceBlockingStub stub = ElectionResultServiceGrpc.newBlockingStub(channel);
-        System.out.println("Current Node" +this.peer.getId() + " local leader: " + this.peer.getLeaderId());
+        System.out.println(getTimeStamp()+"Current Node" +this.peer.getId() + " local leader: " + this.peer.getLeaderId());
         stub.declareResult(ElectionResultDeclaration.newBuilder()
                 .setLeaderId(this.peer.getLeaderId())
                 .addAllPath(path)
                         .setLeaderVoterId(this.peer.getLeaderVoterId())
                 .build());
         channel.shutdown();
+    }
+    private static String getTimeStamp(){
+        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss.SSS").format(new java.util.Date());
+        return "["+timestamp+"] ";
     }
 }

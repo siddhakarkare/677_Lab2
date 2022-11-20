@@ -122,4 +122,5 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
                 .build());
         channel.shutdown();
     }
+
 }

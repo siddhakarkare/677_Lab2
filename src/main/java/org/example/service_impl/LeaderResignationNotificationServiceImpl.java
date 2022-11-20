@@ -16,14 +16,19 @@ public class LeaderResignationNotificationServiceImpl extends LeaderResignationN
 
     @Override
     public void resignLeader(LeaderResignationNotification request, StreamObserver<Empty> responseObserver) {
+        //Current peer resigns as the leader
         long clock = request.getClock();
         this.peer.updateClock(clock);
 
-        String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
-        System.out.println(timeStamp + " >> Leader has resigned, setting leaderId value to -1 till new leader is not elected: " + request);
+        System.out.println(getTimeStamp()+ " >> Leader has resigned, setting leaderId value to -1 till new leader is not elected: " + request);
         peer.setLeaderId(-1);
 
         responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
+    }
+
+    private static String getTimeStamp(){
+        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss.SSS").format(new java.util.Date());
+        return "["+timestamp+"] ";
     }
 }
