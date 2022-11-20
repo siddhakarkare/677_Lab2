@@ -33,7 +33,7 @@ public class Main {
         stub.electLeader(ElectionRequest.newBuilder()
                 .addAllPath(path)
                 .setContenderVoterId(voterId)
-                .setContenderId(voterId)
+                .setContenderId(initiatorId)
                 .build());
         channel.shutdown();
     }

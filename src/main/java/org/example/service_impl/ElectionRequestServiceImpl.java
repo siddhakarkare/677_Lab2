@@ -28,11 +28,11 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
         List<Integer> path = new ArrayList<>(request.getPathList());
         ElectionReply reply = null;
 
-        if(!path.contains(this.peer.getId())){
+        if(path.contains(this.peer.getId())){
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
         }
-        System.out.println(this.peer.getId()+" not in "+path);
+//        System.out.println(this.peer.getId()+" not in "+path);
         int contenderId = request.getContenderId();
         int contenderVoterId = request.getContenderVoterId();
 
@@ -40,8 +40,8 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
-        System.out.println(timeStamp + " \nElection request received at peer " + this.peer.getId());
-        System.out.println("Request Body:"+request);
+//        System.out.println(timeStamp + " \nElection request received at peer " + this.peer.getId());
+//        System.out.println("Request Body:"+request);
 
         if (contenderVoterId > this.peer.getLeaderVoterId()) { // found bully
             this.peer.setLeader(contenderId, contenderVoterId);
@@ -51,7 +51,7 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
 
         path.add(this.peer.getId());
-        System.out.println("New Path:"+path);
+//        System.out.println("New Path:"+path);
         for (int neighbor : this.peer.getNeighbors()) {
             if (!path.contains(neighbor)) {//don't process if already visited at this peer
                 reply = sendElectionToNeighbor(neighbor, this.peer.getLeaderId(), this.peer.getLeaderVoterId(), path);
