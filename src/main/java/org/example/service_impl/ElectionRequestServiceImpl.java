@@ -33,6 +33,7 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
         if(path.contains(this.peer.getId()) || contenderVoterId == this.peer.getLeaderVoterId()){
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
+            return;
         }
         System.out.println(this.peer.getId()+" not in "+path);
 

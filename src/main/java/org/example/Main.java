@@ -100,19 +100,19 @@ public class Main {
         writeStocksToFile();
 
 
-        System.out.println("Current System Before Leader Election:");
-        System.out.println("----------------------------- ");
-        for(int i = 0; i < N; i++) {
-            System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
-                    + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct()
-                    + "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
-                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity()
-                    + "\n Leader:" + peers[i].getLeaderId() + "\n VoterId:" + peers[i].getVoterId());
-            System.out.print("  Neighbors: ");
-            for (int neigh : peers[i].getNeighbors()) {
-                System.out.print(" " + portPeerMap.get(neigh) + " ");
-            }
-        }
+//        System.out.println("Current System Before Leader Election:");
+//        System.out.println("----------------------------- ");
+//        for(int i = 0; i < N; i++) {
+//            System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
+//                    + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct()
+//                    + "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
+//                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity()
+//                    + "\n Leader:" + peers[i].getLeaderId() + "\n VoterId:" + peers[i].getVoterId());
+//            System.out.print("  Neighbors: ");
+//            for (int neigh : peers[i].getNeighbors()) {
+//                System.out.print(" " + portPeerMap.get(neigh) + " ");
+//            }
+//        }
 
         electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
 
@@ -180,6 +180,5 @@ public class Main {
             e.printStackTrace();
             System.out.println("Main.java: Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
         }
-
     }
 }
