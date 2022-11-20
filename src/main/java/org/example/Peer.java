@@ -62,6 +62,7 @@ public class Peer {
         }
 
         this.voterId = getNextCount();
+        //set leaderid and leadervoteid
     }
 
     public void reset(int code) {

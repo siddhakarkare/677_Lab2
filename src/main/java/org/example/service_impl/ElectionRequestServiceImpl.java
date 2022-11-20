@@ -39,6 +39,8 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
         if( contenderVoterId > this.peer.getLeaderVoterId()){ // found bully
             this.peer.setLeader(contenderId,contenderVoterId);
+        }
+        else{ //be the bully
             path = new ArrayList<>(Arrays.asList()); // Clear path
         }
 
