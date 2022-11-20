@@ -95,7 +95,7 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
         }
         if (request.getIsInitiator()) { //if this peer initiated the election
             System.out.println("****************Inform new leader to read the file****************");
-//            assignTrader(this.peer.getId(), this.peer.getLeaderId());
+            assignTrader(this.peer.getId(), this.peer.getLeaderId());
         }
         responseObserver.onNext(reply);
         responseObserver.onCompleted();

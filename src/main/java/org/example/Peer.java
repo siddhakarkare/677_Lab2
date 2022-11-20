@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.*;
 
 public class Peer {
@@ -209,18 +207,21 @@ public class Peer {
     }
 
     public static Map<Integer, List<String>> readSellerStockFromFile(String path) {
-        Properties prop = new Properties();
         Map<Integer, List<String>> map = new HashMap<>();
+        Map<Integer, String> temp;
         try (FileInputStream inputStream = new FileInputStream(path)) {
-            prop.load(inputStream);
+            ObjectInputStream ois = new ObjectInputStream(inputStream);
+            temp = (Map<Integer, String>) ois.readObject();
+            for (final Map.Entry<Integer, String> entry : temp.entrySet()) {
+                String propValue = entry.getValue();
+                System.out.println(entry.getKey() + " " + propValue);
+                map.put(entry.getKey(), Arrays.asList(propValue.split("::")));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not load the leader properties file at: " + path + "\nError message: " + e.getMessage());
         }
-        for (final Map.Entry<Object, Object> entry : prop.entrySet()) {
-            String propValue = (String) entry.getValue();
-            map.put((Integer) entry.getKey(), Arrays.asList(propValue.split("::")));
-        }
+
         return map;
     }
 
@@ -237,7 +238,7 @@ public class Peer {
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Could not write the updated le[ader properties file at: " + path + "\nError message: " + e.getMessage());
+            System.out.println("Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
         }
     }
 
