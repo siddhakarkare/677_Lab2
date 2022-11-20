@@ -20,8 +20,6 @@ public class ElectionResultServiceImpl extends ElectionResultServiceGrpc.Electio
 
     @Override
     public void declareResult(ElectionResultDeclaration request, StreamObserver<Empty> responseObserver) {
-
-
         List<Integer> path = new ArrayList<>(request.getPathList());
         if(path.contains(this.peer.getId())){
             responseObserver.onNext(Empty.getDefaultInstance());

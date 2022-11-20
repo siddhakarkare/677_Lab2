@@ -36,8 +36,10 @@ public final class Services {
       "utOfStockNotificationReply2n\n$LeaderResi" +
       "gnationNotificationService\022F\n\014resignLead" +
       "er\022\036.LeaderResignationNotification\032\026.goo" +
-      "gle.protobuf.EmptyB\030\n\024org.example.servic" +
-      "esP\001b\006proto3"
+      "gle.protobuf.Empty2e\n\033LeaderInitializati" +
+      "onService\022F\n\016initiateLeader\022\034.LeaderInit" +
+      "ializationRequest\032\026.google.protobuf.Empt" +
+      "yB\030\n\024org.example.servicesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

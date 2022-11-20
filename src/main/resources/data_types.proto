@@ -47,3 +47,7 @@ message SellerOutOfStockNotificationReply {
 message LeaderResignationNotification {
   uint32 leader_id = 1;
 }
+
+message LeaderInitializationRequest {
+  uint32 initiator_id = 1;
+}

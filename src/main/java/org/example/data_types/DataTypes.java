@@ -54,6 +54,11 @@ public final class DataTypes {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_LeaderResignationNotification_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_LeaderInitializationRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_LeaderInitializationRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -78,8 +83,9 @@ public final class DataTypes {
       "StockNotificationReply\022\021\n\tseller_id\030\001 \001(" +
       "\r\022\024\n\014product_name\030\002 \001(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005" +
       "price\030\004 \001(\r\"2\n\035LeaderResignationNotifica" +
-      "tion\022\021\n\tleader_id\030\001 \001(\rB\032\n\026org.example.d" +
-      "ata_typesP\001b\006proto3"
+      "tion\022\021\n\tleader_id\030\001 \001(\r\"3\n\033LeaderInitial" +
+      "izationRequest\022\024\n\014initiator_id\030\001 \001(\rB\032\n\026" +
+      "org.example.data_typesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -141,6 +147,12 @@ public final class DataTypes {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_LeaderResignationNotification_descriptor,
         new java.lang.String[] { "LeaderId", });
+    internal_static_LeaderInitializationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_LeaderInitializationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_LeaderInitializationRequest_descriptor,
+        new java.lang.String[] { "InitiatorId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

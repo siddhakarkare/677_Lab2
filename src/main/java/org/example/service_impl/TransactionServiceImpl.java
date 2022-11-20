@@ -5,6 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.example.Peer;
 import org.example.data_types.*;
+import org.example.services.ElectionRequestServiceGrpc;
 import org.example.services.ResetSellerOnOutOfStockGrpc;
 import org.example.services.TransactionServiceGrpc;
 
@@ -74,7 +75,7 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
                 peer.incrementTransactions();
                 if(peer.getLeaderTransactionCount() > MAX_TRANSACTIONS) {
                     peer.reset(2);
-                    // TODO: TRIGGER LEADER ELECTION HERE!
+                    electLeaderBully(peer.getNeighbors().get(0), 1);
                 }
             }
 
@@ -104,5 +105,20 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
         newDetails.add(String.valueOf(newPrice));
 
         return newDetails;
+    }
+
+    private void electLeaderBully(int initiatorId, int voterId) {
+        List<Integer> path = new ArrayList<>(initiatorId);
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", initiatorId).usePlaintext().build();
+        ElectionRequestServiceGrpc.ElectionRequestServiceBlockingStub stub = ElectionRequestServiceGrpc.newBlockingStub(channel);
+        System.out.println("LeaderId: " + initiatorId + " sending lookup to neighbor: " + initiatorId);
+        stub.electLeader(ElectionRequest.newBuilder()
+                .addAllPath(path)
+                .setIsInitiator(true)
+                .setContenderVoterId(voterId)
+                .setContenderId(initiatorId)
+                .build());
+        channel.shutdown();
     }
 }

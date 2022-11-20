@@ -75,6 +75,7 @@ public class Main {
                             .addService(new SellerOutOfStockNotificationImpl(peer))
                             .addService(new ElectionResultServiceImpl(peer))
                             .addService(new TransactionServiceImpl(peer))
+                            .addService(new LeaderInitializationServiceImpl(peer))
                             .build();
 
                     server.start();

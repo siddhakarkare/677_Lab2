@@ -25,3 +25,7 @@ service ResetSellerOnOutOfStock {
 service LeaderResignationNotificationService {
   rpc resignLeader(LeaderResignationNotification) returns (google.protobuf.Empty);
 }
+
+service LeaderInitializationService {
+  rpc initiateLeader(LeaderInitializationRequest) returns (google.protobuf.Empty);
+}
