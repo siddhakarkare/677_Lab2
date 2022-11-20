@@ -7,9 +7,7 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.example.data_types.ElectionRequest;
 import org.example.data_types.TransactionRequest;
-import org.example.service_impl.ElectionRequestServiceImpl;
-import org.example.service_impl.ElectionResultServiceImpl;
-import org.example.service_impl.TransactionServiceImpl;
+import org.example.service_impl.*;
 import org.example.services.ElectionRequestServiceGrpc;
 import org.example.services.TransactionServiceGrpc;
 
@@ -81,6 +79,9 @@ public class Main {
             new Thread(() -> {
                 try {
                     Server server = ServerBuilder.forPort(peer.getPort()).addService(new ElectionRequestServiceImpl(peer))
+                            .addService(new ElectionRequestServiceImpl(peer))
+                            .addService(new LeaderResignationNotificationServiceImpl(peer))
+                            .addService(new SellerOutOfStockNotificationImpl(peer))
                             .addService(new ElectionResultServiceImpl(peer))
                             .addService(new TransactionServiceImpl(peer))
                             .build();
