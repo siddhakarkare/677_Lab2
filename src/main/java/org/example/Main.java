@@ -14,6 +14,7 @@ import org.example.services.TransactionServiceGrpc;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Thread.sleep;
@@ -39,6 +40,8 @@ public class Main {
         channel.shutdown();
     }
     public static void main(String[] args) {
+
+        System.out.println(getTimeStamp()+"Starting initialization");
         Boolean seller = false, buyer = false;
         Integer[] ports = new Integer[]{8999,8998,8997,8996,8995,8994,8993,8992}; //makes sure at least N ports are present here
         ArrayList<Integer> portList = new ArrayList<>(Arrays.asList(ports));
@@ -91,38 +94,29 @@ public class Main {
         }
         writeStocksToFile();
 
-
-//        System.out.println("Current System Before Leader Election:");
-//        System.out.println("----------------------------- ");
-//        for(int i = 0; i < N; i++) {
-//            System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
-//                    + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct()
-//                    + "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
-//                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity()
-//                    + "\n Leader:" + peers[i].getLeaderId() + "\n VoterId:" + peers[i].getVoterId());
-//            System.out.print("  Neighbors: ");
-//            for (int neigh : peers[i].getNeighbors()) {
-//                System.out.print(" " + portPeerMap.get(neigh) + " ");
-//            }
-//        }
+        System.out.println(getTimeStamp()+"Network Initialized");
 
         electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
+
+        System.out.println(getTimeStamp()+"Leader Elected");
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
-            System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
-                    + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct() +
-                    "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
-                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity()+"\n Leader:"+peers[i].getLeaderId()+"\n VoterId:"+peers[i].getVoterId());
-            System.out.print("  Neighbors: ");
+
+            String neighStr = "";
             for(int neigh : peers[i].getNeighbors()){
-                System.out.print(" "+portPeerMap.get(neigh)+" ");
+               neighStr += " "+portPeerMap.get(neigh)+" ";
             }
+            System.out.println("\n Peer:" + i + "  [ Port: " + peers[i].getPort() + "\t  BuyerRole:" + peers[i].isBuyer()
+                    + "\t  SellerRole: " + peers[i].isSeller() + "\t  BuyerProduct:" + peers[i].getBuyerProduct()
+                    + "\t  SellerProduct:" + peers[i].getSellerProduct() + "\t  BuyerQuantity:" + peers[i].getBuyerQuantity()
+                    + "\t  SellerQuantity:" + peers[i].getSellerQuantity()+"\t Leader:"+peers[i].getLeaderId()+"\t VoterId:"+peers[i].getVoterId()
+                    + "\t  Neighbors: {" + neighStr +"} ]");
         }
+        System.out.println("\n----------------------------- \n");
 
-
-
-        System.out.println("\n----------------------------- ");
+        System.out.println(getTimeStamp()+"Starting Trade");
+        System.out.println("\n----------------------------- \n");
         for(int i = 0; i < N ; i++) { //Let the trades begin!
             Peer peer = peers[i];
 
@@ -171,5 +165,9 @@ public class Main {
             e.printStackTrace();
             System.out.println("Main.java: Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
         }
+    }
+    private static String getTimeStamp(){
+        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
+        return "["+timestamp+"] ";
     }
 }
