@@ -32,12 +32,14 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
         int contenderId = request.getContenderId();
         int contenderVoterId = request.getContenderVoterId();
 
-        if(path.contains(this.peer.getId()) || contenderVoterId == this.peer.getLeaderVoterId()){
+        if(path.contains(this.peer.getId()) || (contenderVoterId == this.peer.getLeaderVoterId() && contenderVoterId != this.peer.getVoterId())){
+            System.out.println(this.peer.getId()+","+path+","+contenderVoterId+","+this.peer.getLeaderVoterId());
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
             return;
         }
         System.out.println(this.peer.getId()+" not in "+path);
+        System.out.println("IsInitiator:"+request.getIsInitiator());
 
 
         System.out.println(this.peer.getId()+"ContenderId:"+contenderId+" ContenderVoterId:"+contenderVoterId);
@@ -81,11 +83,6 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
                 declareResult(neighbor, path);
             }
             reply = null;
-
-            if (request.getIsInitiator()) { //if this peer initiated the election
-                System.out.println("Inform new leader to read the file");
-                assignTrader(this.peer.getId(), this.peer.getLeaderId());
-            }
         } else {
             reply = ElectionReply.newBuilder()
                 .setContenderId(this.peer.getLeaderId()) //contender who is now the local winner (might change if a bully found on the way back)
@@ -96,7 +93,10 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
             System.out.println("Returning leader:"+this.peer.getLeaderId()+" with voter id:"+this.peer.getLeaderVoterId());
         }
-
+        if (request.getIsInitiator()) { //if this peer initiated the election
+            System.out.println("****************Inform new leader to read the file****************");
+//            assignTrader(this.peer.getId(), this.peer.getLeaderId());
+        }
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
