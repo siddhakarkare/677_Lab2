@@ -24,7 +24,7 @@ public class Peer {
 
     private static final int MAX_QUANTITY = 100;
     private final int peerId;
-    private int voterId = 0;
+    private int voterId;
     private final int port;
     private List<Integer> neighbors;
     private boolean buyerRole;
@@ -235,7 +235,7 @@ public class Peer {
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
+            System.out.println("Could not write the updated le[ader properties file at: " + path + "\nError message: " + e.getMessage());
         }
     }
 

@@ -13,7 +13,9 @@ import org.example.service_impl.TransactionServiceImpl;
 import org.example.services.ElectionRequestServiceGrpc;
 import org.example.services.TransactionServiceGrpc;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 import static java.lang.Thread.sleep;
@@ -31,7 +33,6 @@ public class Main {
         ElectionRequestServiceGrpc.ElectionRequestServiceBlockingStub stub = ElectionRequestServiceGrpc.newBlockingStub(channel);
         System.out.println("LeaderId: " + initiatorId + " sending lookup to neighbor: " + initiatorId);
         stub.electLeader(ElectionRequest.newBuilder()
-                .addAllPath(path)
                 .addAllPath(path)
                 .setContenderVoterId(voterId)
                 .setContenderId(voterId)
@@ -109,7 +110,7 @@ public class Main {
             }
         }
 
-        //TODO: Inform trader of current quantities
+        writeStocksToFile();
 
         electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
 
@@ -141,5 +142,27 @@ public class Main {
 
             }).start();
         }
+    }
+
+    private static void writeStocksToFile(){
+//        peers
+        String path = "leader.properties";
+        Map<Integer, String> stock = new HashMap<>();
+        for ( int i = 0; i<peers.length; i++ ) {
+            Peer peer = peers[i];
+            int key = peer.getId();
+            String value = peer.getSellerProduct()+"::"+peer.getSellerQuantity()+"::"+peer.getSellerPrice();
+
+            stock.put(key,value);
+        }
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(path));
+            oos.writeObject(stock);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Main.java: Could not write the updated leader properties file at: " + path + "\nError message: " + e.getMessage());
+        }
+
     }
 }
