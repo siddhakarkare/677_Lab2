@@ -1,11 +1,17 @@
 package org.example;
 
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.example.data_types.ElectionRequest;
+import org.example.data_types.TransactionRequest;
 import org.example.service_impl.ElectionRequestServiceImpl;
 import org.example.service_impl.ElectionResultServiceImpl;
 import org.example.service_impl.TransactionServiceImpl;
+import org.example.services.ElectionRequestServiceGrpc;
+import org.example.services.TransactionServiceGrpc;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,60 +20,30 @@ import static java.lang.Thread.sleep;
 
 public class Main {
     public static final int N = 6; //Number of peers
-    private static final int HOP_COUNT = 3;
-
-    private static int leader = -1; //Leader Id
 
     private static HashMap<Integer,Integer> portPeerMap;
 
     private static Peer[] peers;
-    private static void electLeaderBully(int initiator){
-        //If initiator not supplied select any node randomly to initiate
-        if(initiator == -1){
-            Random rand = new Random();
-            int a = rand.nextInt(6); //pick any of the
-        }
+    private static void electLeaderBully(int initiatorId, int voterId) {
+        List<Integer> path = new ArrayList<>(initiatorId);
 
-        //Initiator sends request to its neighbors to declare self as the new leader and waits for response
-
-//        ArrayList<Integer> neighbors = peers[initiator].getNeighbors();
-//        new Thread(() -> {
-//            try {
-//                sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//            for(int j = 0; j < neighbors.size(); j++) {
-//                Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
-//                ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
-//                LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
-//                System.out.println("Triggering lookup for"+peer.getId());
-//                stub.lookup(LookupRequest.newBuilder()
-//                        .setBuyerId(peer.getId())
-//                        .setProductName(peer.getBuyerProduct())
-//                        .setHops(HOP_COUNT)
-//                        .setRequestId(peer.getRequestId())
-//                        .addPath(peer.getPort())
-//                        .build());
-//
-//                channel.shutdown();
-//            }
-//
-//        }).start();
-        //current node send request to its neighbors
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", initiatorId).usePlaintext().build();
+        ElectionRequestServiceGrpc.ElectionRequestServiceBlockingStub stub = ElectionRequestServiceGrpc.newBlockingStub(channel);
+        System.out.println("LeaderId: " + initiatorId + " sending lookup to neighbor: " + initiatorId);
+        stub.electLeader(ElectionRequest.newBuilder()
+                .addAllPath(path)
+                .addAllPath(path)
+                .setContenderVoterId(voterId)
+                .setContenderId(voterId)
+                .build());
+        channel.shutdown();
     }
-
-
-
-
-
     public static void main(String[] args) {
         Boolean seller = false, buyer = false;
         Integer[] ports = new Integer[]{8999,8998,8997,8996,8995,8994,8993,8992}; //makes sure at least N ports are present here
         ArrayList<Integer> portList = new ArrayList<>(Arrays.asList(ports));
         Collections.shuffle(portList);
 
-        Random rand = new Random();
         boolean[][] adj = {
                 {false,true,true,true,false,false}, //0
                 {true,false,false,true,true,false}, //1
@@ -132,39 +108,38 @@ public class Main {
                 System.out.print(" "+portPeerMap.get(neigh)+" ");
             }
         }
+
+        //TODO: Inform trader of current quantities
+
+        electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
+
         System.out.println("\n----------------------------- ");
         for(int i = 0; i < N ; i++) { //Let the trades begin!
             Peer peer = peers[i];
-//            if(peer.getBuyerRole() == true) { //initiate first trade
-//
-//                ArrayList<Integer> neighbors = peers[i].getNeighbors();
-//                new Thread(() -> {
-//                    try {
-//                        sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    for(int j = 0; j < neighbors.size(); j++) {
-//                        Peer neigh = peers[portPeerMap.get(neighbors.get(j))];
-//                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", neigh.getPort()).usePlaintext().build();
-//                        LookupServiceGrpc.LookupServiceBlockingStub stub = LookupServiceGrpc.newBlockingStub(channel);
-//                        System.out.println("Triggering lookup for"+peer.getId());
-//                        stub.lookup(LookupRequest.newBuilder()
-//                                .setBuyerId(peer.getId())
-//                                .setProductName(peer.getBuyerProduct())
-//                                .setHops(HOP_COUNT)
-//                                .setRequestId(peer.getRequestId())
-//                                .addPath(peer.getPort())
-//                                .build());
-//
-//                        channel.shutdown();
-//                    }
-//
-//                }).start();
-//            }
 
+            new Thread(() -> {
+                while( true ) {
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (peer.isBuyer()) { // submit purchase request to the trader
+
+                        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", peer.getLeaderId()).usePlaintext().build(); //submit request only to leader
+                        TransactionServiceGrpc.TransactionServiceBlockingStub stub = TransactionServiceGrpc.newBlockingStub(channel);
+                        System.out.println("Triggering transaction by" + peer.getId());
+                        stub.transact(TransactionRequest.newBuilder()
+                                .setBuyerId(peer.getId())
+                                .setProductName(peer.getBuyerProduct())
+                                .setQty(peer.getBuyerQuantity())
+                                .build());
+
+                        channel.shutdown();
+                    }
+                }
+
+            }).start();
         }
-
-
     }
 }
