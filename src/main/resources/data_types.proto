@@ -7,6 +7,7 @@ message ElectionRequest {
   uint32 contenderId = 1;
   uint32 contenderVoterId = 2;
   repeated uint32 path = 3;
+  bool isInitiator = 4;
 }
 
 message ElectionReply {

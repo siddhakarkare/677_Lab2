@@ -19,6 +19,7 @@ private static final long serialVersionUID = 0L;
     contenderId_ = 0;
     contenderVoterId_ = 0;
     path_ = java.util.Collections.emptyList();
+    isInitiator_ = false;
   }
 
   @java.lang.Override
@@ -74,6 +75,11 @@ private static final long serialVersionUID = 0L;
               path_.add(input.readUInt32());
             }
             input.popLimit(limit);
+            break;
+          }
+          case 32: {
+
+            isInitiator_ = input.readBool();
             break;
           }
           default: {
@@ -153,6 +159,15 @@ private static final long serialVersionUID = 0L;
   }
   private int pathMemoizedSerializedSize = -1;
 
+  public static final int ISINITIATOR_FIELD_NUMBER = 4;
+  private boolean isInitiator_;
+  /**
+   * <code>bool isInitiator = 4;</code>
+   */
+  public boolean getIsInitiator() {
+    return isInitiator_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -180,6 +195,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < path_.size(); i++) {
       output.writeUInt32NoTag(path_.get(i));
+    }
+    if (isInitiator_ != false) {
+      output.writeBool(4, isInitiator_);
     }
     unknownFields.writeTo(output);
   }
@@ -212,6 +230,10 @@ private static final long serialVersionUID = 0L;
       }
       pathMemoizedSerializedSize = dataSize;
     }
+    if (isInitiator_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, isInitiator_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -234,6 +256,8 @@ private static final long serialVersionUID = 0L;
         == other.getContenderVoterId());
     result = result && getPathList()
         .equals(other.getPathList());
+    result = result && (getIsInitiator()
+        == other.getIsInitiator());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -253,6 +277,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPathList().hashCode();
     }
+    hash = (37 * hash) + ISINITIATOR_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIsInitiator());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -392,6 +419,8 @@ private static final long serialVersionUID = 0L;
 
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
+      isInitiator_ = false;
+
       return this;
     }
 
@@ -427,6 +456,7 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
       }
       result.path_ = path_;
+      result.isInitiator_ = isInitiator_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -491,6 +521,9 @@ private static final long serialVersionUID = 0L;
           path_.addAll(other.path_);
         }
         onChanged();
+      }
+      if (other.getIsInitiator() != false) {
+        setIsInitiator(other.getIsInitiator());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -636,6 +669,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearPath() {
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
+      onChanged();
+      return this;
+    }
+
+    private boolean isInitiator_ ;
+    /**
+     * <code>bool isInitiator = 4;</code>
+     */
+    public boolean getIsInitiator() {
+      return isInitiator_;
+    }
+    /**
+     * <code>bool isInitiator = 4;</code>
+     */
+    public Builder setIsInitiator(boolean value) {
+      
+      isInitiator_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool isInitiator = 4;</code>
+     */
+    public Builder clearIsInitiator() {
+      
+      isInitiator_ = false;
       onChanged();
       return this;
     }

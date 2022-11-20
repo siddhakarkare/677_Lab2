@@ -29,4 +29,9 @@ public interface ElectionRequestOrBuilder extends
    * <code>repeated uint32 path = 3;</code>
    */
   int getPath(int index);
+
+  /**
+   * <code>bool isInitiator = 4;</code>
+   */
+  boolean getIsInitiator();
 }

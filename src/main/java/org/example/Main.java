@@ -32,6 +32,7 @@ public class Main {
         System.out.println("LeaderId: " + initiatorId + " sending lookup to neighbor: " + initiatorId);
         stub.electLeader(ElectionRequest.newBuilder()
                 .addAllPath(path)
+                        .setIsInitiator(true)
                 .setContenderVoterId(voterId)
                 .setContenderId(initiatorId)
                 .build());

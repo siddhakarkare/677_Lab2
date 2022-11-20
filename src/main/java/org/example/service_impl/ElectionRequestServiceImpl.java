@@ -85,6 +85,10 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
                 declareResult(neighbor, path);
             }
             reply = null;
+
+            if (request.getIsInitiator()){ //if this peer initiated the election
+                System.out.println("Inform new leader to read the file");
+            }
         } else {
 //            Collections.reverse(path);
 //            int destPort = path.get(path.size() - 1);
