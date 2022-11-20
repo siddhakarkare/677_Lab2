@@ -24,7 +24,7 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
     public void transact(TransactionRequest request, StreamObserver<TransactionReply> responseObserver) {
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         // if item is available, perform transaction, otherwise send failure in reply
-        System.out.println(timeStamp + ">> Initializing trade for request:\n " + request);
+        System.out.println(timeStamp + ">> Initializing trade for request:\n" + request);
         String product = request.getProductName();
         int quantity = request.getQty();
 

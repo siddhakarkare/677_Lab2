@@ -66,16 +66,6 @@ public class Main {
             peers[i] = new Peer(port, neighbors);
             Peer peer = peers[i];
 
-            if(Boolean.FALSE.equals(buyer) && Boolean.FALSE.equals(peer.isBuyer())) { //Ensure at least one buyer
-                peer.setBuyerRole(true);
-                buyer = true;
-            }
-
-            if(Boolean.FALSE.equals(seller) && Boolean.TRUE.equals(peer.isBuyer())) { //Ensure at least one seller
-                peer.setSellerRole(true);
-                seller = true;
-            }
-
             new Thread(() -> {
                 try {
                     Server server = ServerBuilder.forPort(peer.getPort()).addService(new ElectionRequestServiceImpl(peer))
@@ -115,7 +105,6 @@ public class Main {
 //        }
 
         electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
-
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
@@ -148,10 +137,10 @@ public class Main {
                         TransactionServiceGrpc.TransactionServiceBlockingStub stub = TransactionServiceGrpc.newBlockingStub(channel);
                         System.out.println("Triggering transaction by" + peer.getId());
                         stub.transact(TransactionRequest.newBuilder()
-                                .setBuyerId(peer.getId())
-                                .setProductName(peer.getBuyerProduct())
-                                .setQty(peer.getBuyerQuantity())
-                                .build());
+                            .setBuyerId(peer.getId())
+                            .setProductName(peer.getBuyerProduct())
+                            .setQty(peer.getBuyerQuantity())
+                            .build());
 
                         channel.shutdown();
                     }
