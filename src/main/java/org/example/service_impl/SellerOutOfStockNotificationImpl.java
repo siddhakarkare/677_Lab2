@@ -17,6 +17,9 @@ public class SellerOutOfStockNotificationImpl extends ResetSellerOnOutOfStockGrp
 
     @Override
     public void resetSeller(SellerOutOfStockNotification request, StreamObserver<SellerOutOfStockNotificationReply> responseObserver) {
+        long clock = request.getClock();
+        this.peer.updateClock(clock);
+
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         System.out.println(timeStamp + " >> Resetting seller with seller id " + peer.getId());
         peer.reset(1);

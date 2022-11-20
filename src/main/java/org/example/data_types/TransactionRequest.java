@@ -19,6 +19,7 @@ private static final long serialVersionUID = 0L;
     buyerId_ = 0;
     productName_ = "";
     qty_ = 0;
+    clock_ = 0L;
   }
 
   @java.lang.Override
@@ -59,6 +60,11 @@ private static final long serialVersionUID = 0L;
           case 24: {
 
             qty_ = input.readUInt32();
+            break;
+          }
+          case 32: {
+
+            clock_ = input.readUInt64();
             break;
           }
           default: {
@@ -145,6 +151,15 @@ private static final long serialVersionUID = 0L;
     return qty_;
   }
 
+  public static final int CLOCK_FIELD_NUMBER = 4;
+  private long clock_;
+  /**
+   * <code>uint64 clock = 4;</code>
+   */
+  public long getClock() {
+    return clock_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -168,6 +183,9 @@ private static final long serialVersionUID = 0L;
     if (qty_ != 0) {
       output.writeUInt32(3, qty_);
     }
+    if (clock_ != 0L) {
+      output.writeUInt64(4, clock_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -187,6 +205,10 @@ private static final long serialVersionUID = 0L;
     if (qty_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt32Size(3, qty_);
+    }
+    if (clock_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, clock_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -210,6 +232,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getProductName());
     result = result && (getQty()
         == other.getQty());
+    result = result && (getClock()
+        == other.getClock());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -227,6 +251,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getProductName().hashCode();
     hash = (37 * hash) + QTY_FIELD_NUMBER;
     hash = (53 * hash) + getQty();
+    hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getClock());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -366,6 +393,8 @@ private static final long serialVersionUID = 0L;
 
       qty_ = 0;
 
+      clock_ = 0L;
+
       return this;
     }
 
@@ -395,6 +424,7 @@ private static final long serialVersionUID = 0L;
       result.buyerId_ = buyerId_;
       result.productName_ = productName_;
       result.qty_ = qty_;
+      result.clock_ = clock_;
       onBuilt();
       return result;
     }
@@ -452,6 +482,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getQty() != 0) {
         setQty(other.getQty());
+      }
+      if (other.getClock() != 0L) {
+        setClock(other.getClock());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -599,6 +632,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearQty() {
       
       qty_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long clock_ ;
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public long getClock() {
+      return clock_;
+    }
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public Builder setClock(long value) {
+      
+      clock_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public Builder clearClock() {
+      
+      clock_ = 0L;
       onChanged();
       return this;
     }

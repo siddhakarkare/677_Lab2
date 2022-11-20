@@ -27,6 +27,8 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
     @Override
     public void electLeader(ElectionRequest request, StreamObserver<ElectionReply> responseObserver) {
+        long clock = request.getClock();
+        this.peer.updateClock(clock);
         List<Integer> path = new ArrayList<>(request.getPathList());
         ElectionReply reply = null;
         int contenderId = request.getContenderId();

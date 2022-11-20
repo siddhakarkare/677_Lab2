@@ -11,4 +11,9 @@ public interface SellerOutOfStockNotificationOrBuilder extends
    * <code>uint32 trader_id = 1;</code>
    */
   int getTraderId();
+
+  /**
+   * <code>uint64 clock = 2;</code>
+   */
+  long getClock();
 }

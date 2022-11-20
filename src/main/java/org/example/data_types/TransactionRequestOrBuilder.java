@@ -26,4 +26,9 @@ public interface TransactionRequestOrBuilder extends
    * <code>uint32 qty = 3;</code>
    */
   int getQty();
+
+  /**
+   * <code>uint64 clock = 4;</code>
+   */
+  long getClock();
 }

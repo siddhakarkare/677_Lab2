@@ -19,6 +19,7 @@ private static final long serialVersionUID = 0L;
     leaderId_ = 0;
     leaderVoterId_ = 0;
     path_ = java.util.Collections.emptyList();
+    clock_ = 0L;
   }
 
   @java.lang.Override
@@ -74,6 +75,11 @@ private static final long serialVersionUID = 0L;
               path_.add(input.readUInt32());
             }
             input.popLimit(limit);
+            break;
+          }
+          case 32: {
+
+            clock_ = input.readUInt64();
             break;
           }
           default: {
@@ -153,6 +159,15 @@ private static final long serialVersionUID = 0L;
   }
   private int pathMemoizedSerializedSize = -1;
 
+  public static final int CLOCK_FIELD_NUMBER = 4;
+  private long clock_;
+  /**
+   * <code>uint64 clock = 4;</code>
+   */
+  public long getClock() {
+    return clock_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -180,6 +195,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < path_.size(); i++) {
       output.writeUInt32NoTag(path_.get(i));
+    }
+    if (clock_ != 0L) {
+      output.writeUInt64(4, clock_);
     }
     unknownFields.writeTo(output);
   }
@@ -212,6 +230,10 @@ private static final long serialVersionUID = 0L;
       }
       pathMemoizedSerializedSize = dataSize;
     }
+    if (clock_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, clock_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -234,6 +256,8 @@ private static final long serialVersionUID = 0L;
         == other.getLeaderVoterId());
     result = result && getPathList()
         .equals(other.getPathList());
+    result = result && (getClock()
+        == other.getClock());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -253,6 +277,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPathList().hashCode();
     }
+    hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getClock());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -392,6 +419,8 @@ private static final long serialVersionUID = 0L;
 
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
+      clock_ = 0L;
+
       return this;
     }
 
@@ -427,6 +456,7 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
       }
       result.path_ = path_;
+      result.clock_ = clock_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -491,6 +521,9 @@ private static final long serialVersionUID = 0L;
           path_.addAll(other.path_);
         }
         onChanged();
+      }
+      if (other.getClock() != 0L) {
+        setClock(other.getClock());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -636,6 +669,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearPath() {
       path_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
+      onChanged();
+      return this;
+    }
+
+    private long clock_ ;
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public long getClock() {
+      return clock_;
+    }
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public Builder setClock(long value) {
+      
+      clock_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 clock = 4;</code>
+     */
+    public Builder clearClock() {
+      
+      clock_ = 0L;
       onChanged();
       return this;
     }

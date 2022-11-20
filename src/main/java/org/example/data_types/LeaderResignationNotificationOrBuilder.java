@@ -11,4 +11,9 @@ public interface LeaderResignationNotificationOrBuilder extends
    * <code>uint32 leader_id = 1;</code>
    */
   int getLeaderId();
+
+  /**
+   * <code>uint64 clock = 2;</code>
+   */
+  long getClock();
 }

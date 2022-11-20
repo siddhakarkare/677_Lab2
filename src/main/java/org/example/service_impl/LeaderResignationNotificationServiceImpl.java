@@ -16,6 +16,9 @@ public class LeaderResignationNotificationServiceImpl extends LeaderResignationN
 
     @Override
     public void resignLeader(LeaderResignationNotification request, StreamObserver<Empty> responseObserver) {
+        long clock = request.getClock();
+        this.peer.updateClock(clock);
+
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         System.out.println(timeStamp + " >> Leader has resigned, setting leaderId value to -1 till new leader is not elected: " + request);
         peer.setLeaderId(-1);

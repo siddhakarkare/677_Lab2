@@ -20,9 +20,10 @@ public class TransactionServiceImpl extends TransactionServiceGrpc.TransactionSe
         this.peer = peer;
     }
 
-    // TODO: Handle its response at the buyer's end
     @Override
     public void transact(TransactionRequest request, StreamObserver<TransactionReply> responseObserver) {
+        long clock = request.getClock();
+        this.peer.updateClock(clock);
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         // if item is available, perform transaction, otherwise send failure in reply
         System.out.println(timeStamp + ">> Initializing trade for request:\n" + request);

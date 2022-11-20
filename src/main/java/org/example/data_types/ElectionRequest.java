@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     contenderVoterId_ = 0;
     path_ = java.util.Collections.emptyList();
     isInitiator_ = false;
+    clock_ = 0L;
   }
 
   @java.lang.Override
@@ -80,6 +81,11 @@ private static final long serialVersionUID = 0L;
           case 32: {
 
             isInitiator_ = input.readBool();
+            break;
+          }
+          case 40: {
+
+            clock_ = input.readUInt64();
             break;
           }
           default: {
@@ -168,6 +174,15 @@ private static final long serialVersionUID = 0L;
     return isInitiator_;
   }
 
+  public static final int CLOCK_FIELD_NUMBER = 5;
+  private long clock_;
+  /**
+   * <code>uint64 clock = 5;</code>
+   */
+  public long getClock() {
+    return clock_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -198,6 +213,9 @@ private static final long serialVersionUID = 0L;
     }
     if (isInitiator_ != false) {
       output.writeBool(4, isInitiator_);
+    }
+    if (clock_ != 0L) {
+      output.writeUInt64(5, clock_);
     }
     unknownFields.writeTo(output);
   }
@@ -234,6 +252,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(4, isInitiator_);
     }
+    if (clock_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, clock_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -258,6 +280,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPathList());
     result = result && (getIsInitiator()
         == other.getIsInitiator());
+    result = result && (getClock()
+        == other.getClock());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -280,6 +304,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ISINITIATOR_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsInitiator());
+    hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getClock());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -421,6 +448,8 @@ private static final long serialVersionUID = 0L;
       bitField0_ = (bitField0_ & ~0x00000004);
       isInitiator_ = false;
 
+      clock_ = 0L;
+
       return this;
     }
 
@@ -457,6 +486,7 @@ private static final long serialVersionUID = 0L;
       }
       result.path_ = path_;
       result.isInitiator_ = isInitiator_;
+      result.clock_ = clock_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -524,6 +554,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getIsInitiator() != false) {
         setIsInitiator(other.getIsInitiator());
+      }
+      if (other.getClock() != 0L) {
+        setClock(other.getClock());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -695,6 +728,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearIsInitiator() {
       
       isInitiator_ = false;
+      onChanged();
+      return this;
+    }
+
+    private long clock_ ;
+    /**
+     * <code>uint64 clock = 5;</code>
+     */
+    public long getClock() {
+      return clock_;
+    }
+    /**
+     * <code>uint64 clock = 5;</code>
+     */
+    public Builder setClock(long value) {
+      
+      clock_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 clock = 5;</code>
+     */
+    public Builder clearClock() {
+      
+      clock_ = 0L;
       onChanged();
       return this;
     }

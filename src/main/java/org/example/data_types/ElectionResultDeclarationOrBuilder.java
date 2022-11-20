@@ -29,4 +29,9 @@ public interface ElectionResultDeclarationOrBuilder extends
    * <code>repeated uint32 path = 3;</code>
    */
   int getPath(int index);
+
+  /**
+   * <code>uint64 clock = 4;</code>
+   */
+  long getClock();
 }

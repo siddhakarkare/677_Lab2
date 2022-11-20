@@ -34,4 +34,9 @@ public interface ElectionRequestOrBuilder extends
    * <code>bool isInitiator = 4;</code>
    */
   boolean getIsInitiator();
+
+  /**
+   * <code>uint64 clock = 5;</code>
+   */
+  long getClock();
 }

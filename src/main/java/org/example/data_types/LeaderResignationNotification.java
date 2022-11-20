@@ -17,6 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private LeaderResignationNotification() {
     leaderId_ = 0;
+    clock_ = 0L;
   }
 
   @java.lang.Override
@@ -46,6 +47,11 @@ private static final long serialVersionUID = 0L;
           case 8: {
 
             leaderId_ = input.readUInt32();
+            break;
+          }
+          case 16: {
+
+            clock_ = input.readUInt64();
             break;
           }
           default: {
@@ -89,6 +95,15 @@ private static final long serialVersionUID = 0L;
     return leaderId_;
   }
 
+  public static final int CLOCK_FIELD_NUMBER = 2;
+  private long clock_;
+  /**
+   * <code>uint64 clock = 2;</code>
+   */
+  public long getClock() {
+    return clock_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -106,6 +121,9 @@ private static final long serialVersionUID = 0L;
     if (leaderId_ != 0) {
       output.writeUInt32(1, leaderId_);
     }
+    if (clock_ != 0L) {
+      output.writeUInt64(2, clock_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -118,6 +136,10 @@ private static final long serialVersionUID = 0L;
     if (leaderId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeUInt32Size(1, leaderId_);
+    }
+    if (clock_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(2, clock_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -137,6 +159,8 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getLeaderId()
         == other.getLeaderId());
+    result = result && (getClock()
+        == other.getClock());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -150,6 +174,9 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + LEADER_ID_FIELD_NUMBER;
     hash = (53 * hash) + getLeaderId();
+    hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getClock());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -285,6 +312,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       leaderId_ = 0;
 
+      clock_ = 0L;
+
       return this;
     }
 
@@ -312,6 +341,7 @@ private static final long serialVersionUID = 0L;
     public org.example.data_types.LeaderResignationNotification buildPartial() {
       org.example.data_types.LeaderResignationNotification result = new org.example.data_types.LeaderResignationNotification(this);
       result.leaderId_ = leaderId_;
+      result.clock_ = clock_;
       onBuilt();
       return result;
     }
@@ -362,6 +392,9 @@ private static final long serialVersionUID = 0L;
       if (other == org.example.data_types.LeaderResignationNotification.getDefaultInstance()) return this;
       if (other.getLeaderId() != 0) {
         setLeaderId(other.getLeaderId());
+      }
+      if (other.getClock() != 0L) {
+        setClock(other.getClock());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -414,6 +447,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearLeaderId() {
       
       leaderId_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long clock_ ;
+    /**
+     * <code>uint64 clock = 2;</code>
+     */
+    public long getClock() {
+      return clock_;
+    }
+    /**
+     * <code>uint64 clock = 2;</code>
+     */
+    public Builder setClock(long value) {
+      
+      clock_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 clock = 2;</code>
+     */
+    public Builder clearClock() {
+      
+      clock_ = 0L;
       onChanged();
       return this;
     }

@@ -17,6 +17,9 @@ public class LeaderInitializationServiceImpl extends LeaderInitializationService
 
     @Override
     public void initiateLeader(LeaderInitializationRequest request, StreamObserver<Empty> responseObserver) {
+        long clock = request.getClock();
+        this.peer.updateClock(clock);
+
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
         System.out.println(timeStamp + " >> Assigning new leader with ID: " + peer.getId());
         peer.assignLeadership();

@@ -11,4 +11,9 @@ public interface LeaderInitializationRequestOrBuilder extends
    * <code>uint32 initiator_id = 1;</code>
    */
   int getInitiatorId();
+
+  /**
+   * <code>uint64 clock = 2;</code>
+   */
+  long getClock();
 }

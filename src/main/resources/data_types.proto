@@ -8,6 +8,7 @@ message ElectionRequest {
   uint32 contenderVoterId = 2;
   repeated uint32 path = 3;
   bool isInitiator = 4;
+  uint64 clock = 5;
 }
 
 message ElectionReply {
@@ -21,12 +22,14 @@ message ElectionResultDeclaration {
   uint32 leaderId = 1;
   uint32 leaderVoterId = 2;
   repeated uint32 path = 3;
+  uint64 clock = 4;
 }
 
 message TransactionRequest {
   uint32 buyer_id = 1;
   string product_name = 2;
   uint32 qty = 3;
+  uint64 clock = 4;
 }
 
 message TransactionReply {
@@ -35,6 +38,7 @@ message TransactionReply {
 
 message SellerOutOfStockNotification {
   uint32 trader_id = 1;
+  uint64 clock = 2;
 }
 
 message SellerOutOfStockNotificationReply {
@@ -46,8 +50,10 @@ message SellerOutOfStockNotificationReply {
 
 message LeaderResignationNotification {
   uint32 leader_id = 1;
+  uint64 clock = 2;
 }
 
 message LeaderInitializationRequest {
   uint32 initiator_id = 1;
+  uint64 clock = 2;
 }

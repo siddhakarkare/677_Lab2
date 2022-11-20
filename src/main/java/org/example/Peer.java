@@ -39,6 +39,8 @@ public class Peer {
     // schema: peerId, seller_prod, seller_qty, seller_price
     Map<Integer, List<String>> sellerStockRecord;
 
+    private long clock = 1;
+
     public Peer(int port, List<Integer> neighbors) {
         this.peerId = port;
         this.port = port;
@@ -62,6 +64,8 @@ public class Peer {
         this.voterId = getNextCount();
 
         this.setLeader(this.getId(),this.getVoterId()); //set self as the leader for now
+
+        this.incrementClock();
     }
 
     public void reset(int code) {
@@ -99,6 +103,8 @@ public class Peer {
                 this.sellerPrice = getProductPrice();
             }
         }
+
+        this.incrementClock();
     }
 
     public void setBuyerRole(Boolean role) {
@@ -153,12 +159,16 @@ public class Peer {
         return request_id;
     }
 
-    public void addNeighbor(int neighborId) {
+    public void addNeighbor(int neighborId)
+    {
         this.neighbors.add(neighborId);
+        this.incrementClock();
     }
 
-    public void setVoterId(int voterId){
+    public void setVoterId(int voterId)
+    {
         this.voterId = voterId;
+        this.incrementClock();
     }
 
     public int getVoterId(){
@@ -192,6 +202,8 @@ public class Peer {
 
         // load the table written by the previous leader from the file
         sellerStockRecord = readSellerStockFromFile("leader.properties");
+
+        this.incrementClock();
     }
 
     public Boolean isLeader() {
@@ -204,6 +216,7 @@ public class Peer {
 
     public void setSellerStockRecord(Map<Integer, List<String>> stock) {
         this.sellerStockRecord = stock;
+        this.incrementClock();
     }
 
     public static Map<Integer, List<String>> readSellerStockFromFile(String path) {
@@ -245,13 +258,16 @@ public class Peer {
     public void setLeader(int leaderId, int voterId) {
         this.leaderMap.put("id", leaderId);
         this.leaderMap.put("voterId", voterId);
+        this.incrementClock();
     }
 
     public int getLeaderId() {
         return this.leaderMap.get("id");
     }
 
-    public int setLeaderId(int id) {
+    public int setLeaderId(int id)
+    {
+        this.incrementClock();
         return this.leaderMap.put("id", id);
     }
 
@@ -260,10 +276,19 @@ public class Peer {
     }
 
     public void incrementTransactions() {
+        this.incrementClock();
         this.leaderTransactions++;
     }
 
     public int getLeaderTransactionCount() {
         return this.leaderTransactions;
+    }
+
+    public void incrementClock() {
+        this.clock++;
+    }
+
+    public void updateClock(long clock) {
+        this.clock = Math.max(clock, this.clock);
     }
 }
