@@ -185,7 +185,7 @@ public class Peer {
     }
 
     // set this peer as the leader => this peer will perform all transactions moving forward
-    public void setLeader() {
+    public void assignLeadership() {
         this.buyerRole = false;
         this.sellerRole = false;
 
@@ -245,7 +245,10 @@ public class Peer {
 
     public int getLeaderId() {
         return this.leaderMap.get("id");
+    }
 
+    public int setLeaderId(int id) {
+        return this.leaderMap.put("id", id);
     }
 
     public int getLeaderVoterId() {

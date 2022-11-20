@@ -21,3 +21,7 @@ service TransactionService {
 service ResetSellerOnOutOfStock {
   rpc resetSeller(SellerOutOfStockNotification) returns (SellerOutOfStockNotificationReply);
 }
+
+service LeaderResignationNotificationService {
+  rpc resignLeader(LeaderResignationNotification) returns (google.protobuf.Empty);
+}

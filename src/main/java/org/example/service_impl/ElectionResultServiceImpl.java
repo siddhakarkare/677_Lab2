@@ -32,6 +32,8 @@ public class ElectionResultServiceImpl extends ElectionResultServiceGrpc.Electio
                 }
             }
         }
+
+        responseObserver.onNext(Empty.getDefaultInstance());
         responseObserver.onCompleted();
     }
 
@@ -45,6 +47,5 @@ public class ElectionResultServiceImpl extends ElectionResultServiceGrpc.Electio
                         .setLeaderVoterId(this.peer.getLeaderVoterId())
                 .build());
         channel.shutdown();
-
     }
 }

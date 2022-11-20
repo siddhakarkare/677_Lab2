@@ -29,14 +29,15 @@ public final class Services {
       "lectionResultDeclaration\032\026.google.protob" +
       "uf.Empty2I\n\026ElectionRequestService\022/\n\013el" +
       "ectLeader\022\020.ElectionRequest\032\016.ElectionRe" +
-      "ply2S\n\024ElectionReplyService\022;\n\021sendElect" +
-      "ionReply\022\016.ElectionReply\032\026.google.protob" +
-      "uf.Empty2H\n\022TransactionService\0222\n\010transa" +
-      "ct\022\023.TransactionRequest\032\021.TransactionRep" +
-      "ly2k\n\027ResetSellerOnOutOfStock\022P\n\013resetSe" +
-      "ller\022\035.SellerOutOfStockNotification\032\".Se" +
-      "llerOutOfStockNotificationReplyB\030\n\024org.e" +
-      "xample.servicesP\001b\006proto3"
+      "ply2H\n\022TransactionService\0222\n\010transact\022\023." +
+      "TransactionRequest\032\021.TransactionReply2k\n" +
+      "\027ResetSellerOnOutOfStock\022P\n\013resetSeller\022" +
+      "\035.SellerOutOfStockNotification\032\".SellerO" +
+      "utOfStockNotificationReply2n\n$LeaderResi" +
+      "gnationNotificationService\022F\n\014resignLead" +
+      "er\022\036.LeaderResignationNotification\032\026.goo" +
+      "gle.protobuf.EmptyB\030\n\024org.example.servic" +
+      "esP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

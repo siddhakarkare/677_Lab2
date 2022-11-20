@@ -33,11 +33,12 @@ public class ElectionReplyServiceImpl  extends ElectionReplyServiceGrpc.Election
             //1. self.leaderId = max(self.leaderId,leaderId)
 
             this.peer.setLeader( contenderId, contenderVoterId );
-
         }
 
         //if response from all neighbors received,
 
+        responseObserver.onNext(Empty.getDefaultInstance());
+        responseObserver.onCompleted();
     }
 
 

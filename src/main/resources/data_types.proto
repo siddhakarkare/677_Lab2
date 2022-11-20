@@ -20,8 +20,6 @@ message ElectionResultDeclaration {
   uint32 leaderId = 1;
   uint32 leaderVoterId = 2;
   repeated uint32 path = 3;
-
-
 }
 
 message TransactionRequest {
@@ -43,4 +41,8 @@ message SellerOutOfStockNotificationReply {
   string product_name = 2;
   uint32 qty = 3;
   uint32 price = 4;
+}
+
+message LeaderResignationNotification {
+  uint32 leader_id = 1;
 }

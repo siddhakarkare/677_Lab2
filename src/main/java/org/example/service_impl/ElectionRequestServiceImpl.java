@@ -85,7 +85,6 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
-
     }
 
     private ElectionReply sendElectionToNeighbor(int neighborId, int contenderId, int contenderVoterId, List<Integer> path) {

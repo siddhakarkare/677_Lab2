@@ -49,6 +49,11 @@ public final class DataTypes {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SellerOutOfStockNotificationReply_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_LeaderResignationNotification_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_LeaderResignationNotification_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -71,8 +76,9 @@ public final class DataTypes {
       "lerOutOfStockNotification\022\021\n\ttrader_id\030\001" +
       " \001(\r\"h\n!SellerOutOfStockNotificationRepl" +
       "y\022\021\n\tseller_id\030\001 \001(\r\022\024\n\014product_name\030\002 \001" +
-      "(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005price\030\004 \001(\rB\032\n\026org.ex" +
-      "ample.data_typesP\001b\006proto3"
+      "(\t\022\013\n\003qty\030\003 \001(\r\022\r\n\005price\030\004 \001(\r\"2\n\035Leader" +
+      "ResignationNotification\022\021\n\tleader_id\030\001 \001" +
+      "(\rB\032\n\026org.example.data_typesP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -128,6 +134,12 @@ public final class DataTypes {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SellerOutOfStockNotificationReply_descriptor,
         new java.lang.String[] { "SellerId", "ProductName", "Qty", "Price", });
+    internal_static_LeaderResignationNotification_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_LeaderResignationNotification_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_LeaderResignationNotification_descriptor,
+        new java.lang.String[] { "LeaderId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
