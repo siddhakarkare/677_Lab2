@@ -96,6 +96,9 @@ public class Main {
                 }
             }).start();
         }
+        writeStocksToFile();
+
+        electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
 
         System.out.println("Current System:");
         System.out.println("----------------------------- ");
@@ -103,16 +106,14 @@ public class Main {
             System.out.println("\n Peer:" + i + "\n  Port: " + peers[i].getPort() + "\n  BuyerRole:" + peers[i].isBuyer()
                     + "\n  SellerRole: " + peers[i].isSeller() + "\n  BuyerProduct:" + peers[i].getBuyerProduct() +
                     "\n  SellerProduct:" + peers[i].getSellerProduct() + "\n  BuyerQuantity:" + peers[i].getBuyerQuantity()
-                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity());
+                    + "\n  SellerQuantity:" + peers[i].getSellerQuantity()+"\n Leader:"+peers[i].getLeaderId());
             System.out.print("  Neighbors: ");
             for(int neigh : peers[i].getNeighbors()){
                 System.out.print(" "+portPeerMap.get(neigh)+" ");
             }
         }
 
-        writeStocksToFile();
 
-        electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
 
         System.out.println("\n----------------------------- ");
         for(int i = 0; i < N ; i++) { //Let the trades begin!
@@ -126,7 +127,7 @@ public class Main {
                         throw new RuntimeException(e);
                     }
                     if (peer.isBuyer()) { // submit purchase request to the trader
-
+                        System.out.println("Asking Leader:"+peer.getLeaderId());
                         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", peer.getLeaderId()).usePlaintext().build(); //submit request only to leader
                         TransactionServiceGrpc.TransactionServiceBlockingStub stub = TransactionServiceGrpc.newBlockingStub(channel);
                         System.out.println("Triggering transaction by" + peer.getId());
