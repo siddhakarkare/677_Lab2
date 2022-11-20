@@ -62,7 +62,8 @@ public class Peer {
         }
 
         this.voterId = getNextCount();
-        //set leaderid and leadervoteid
+
+        this.setLeader(this.getId(),this.getVoterId()); //set self as the leader for now
     }
 
     public void reset(int code) {
@@ -182,7 +183,8 @@ public class Peer {
     }
 
     private static int getNextCount(){
-        return ctr ++ ; // return and then increment
+        ctr += 1;
+        return ctr; // return and then increment
     }
 
     // set this peer as the leader => this peer will perform all transactions moving forward

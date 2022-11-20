@@ -27,16 +27,17 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
     public void electLeader(ElectionRequest request, StreamObserver<ElectionReply> responseObserver) {
         List<Integer> path = new ArrayList<>(request.getPathList());
         ElectionReply reply = null;
-
-        if(path.contains(this.peer.getId())){
-            responseObserver.onNext(reply);
-            responseObserver.onCompleted();
-        }
-//        System.out.println(this.peer.getId()+" not in "+path);
         int contenderId = request.getContenderId();
         int contenderVoterId = request.getContenderVoterId();
 
-        System.out.println("ContenderId:"+contenderId+" ContenderVoterId:"+contenderVoterId);
+        if(path.contains(this.peer.getId()) || contenderVoterId == this.peer.getLeaderVoterId()){
+            responseObserver.onNext(reply);
+            responseObserver.onCompleted();
+        }
+        System.out.println(this.peer.getId()+" not in "+path);
+
+
+        System.out.println(this.peer.getId()+"ContenderId:"+contenderId+" ContenderVoterId:"+contenderVoterId);
 
 
         String timeStamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
@@ -44,23 +45,32 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
 //        System.out.println("Request Body:"+request);
 
         if (contenderVoterId > this.peer.getLeaderVoterId()) { // found bully
+            System.out.println(this.peer.getId()+"Found Bully");
             this.peer.setLeader(contenderId, contenderVoterId);
-        } else { //be the bully
+            path.add(this.peer.getId());
+        }
+        else { //be the bully
+
+            System.out.println(this.peer.getId()+"Be the bully with voter id"+this.peer.getLeaderVoterId());
+            System.out.println("Bullying over"+contenderVoterId);
             path = new ArrayList<>(); // Clear path
+            path.add(this.peer.getId());
         }
 
 
-        path.add(this.peer.getId());
+
 //        System.out.println("New Path:"+path);
         for (int neighbor : this.peer.getNeighbors()) {
             if (!path.contains(neighbor)) {//don't process if already visited at this peer
                 reply = sendElectionToNeighbor(neighbor, this.peer.getLeaderId(), this.peer.getLeaderVoterId(), path);
+                if(reply != null) {
+                    int electedLocalLeaderId = reply.getContenderId();
+                    int electedLocalLeaderVoterId = reply.getContenderVoterId();
 
-                int electedLocalLeaderId = reply.getContenderId();
-                int electedLocalLeaderVoterId = reply.getContenderVoterId();
-
-                if (electedLocalLeaderVoterId > this.peer.getLeaderVoterId()) { // found bully
-                    this.peer.setLeader(electedLocalLeaderId, electedLocalLeaderVoterId);
+                    if (electedLocalLeaderVoterId > this.peer.getLeaderVoterId()) { // found bully
+                        System.out.println(this.peer.getId() + "Found bully in reply");
+                        this.peer.setLeader(electedLocalLeaderId, electedLocalLeaderVoterId);
+                    }
                 }
             }
         }
@@ -85,6 +95,8 @@ public class ElectionRequestServiceImpl extends ElectionRequestServiceGrpc.Elect
                     .addAllPath(path)
                     .setChildId(this.peer.getId()) //so that parent can track who all replied to the election
                     .build();
+
+            System.out.println("Returning leader:"+this.peer.getLeaderId()+" with voter id:"+this.peer.getLeaderVoterId());
         }
 
         responseObserver.onNext(reply);
