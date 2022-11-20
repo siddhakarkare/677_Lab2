@@ -99,7 +99,7 @@ public class Main {
         electLeaderBully( peers[0].getId(), peers[0].getVoterId() );
 
         System.out.println(getTimeStamp()+"Leader Elected");
-        System.out.println("Current System:");
+        System.out.println("\nCurrent System:");
         System.out.println("----------------------------- ");
         for(int i = 0; i < N; i++){
 
@@ -139,6 +139,8 @@ public class Main {
                             .build());
 
                         channel.shutdown();
+
+                        peer.reset(0); //Trade complete, reset buyer
                     }
                 }
 
@@ -167,7 +169,7 @@ public class Main {
         }
     }
     private static String getTimeStamp(){
-        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(new java.util.Date());
+        String timestamp = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss.SSS").format(new java.util.Date());
         return "["+timestamp+"] ";
     }
 }
